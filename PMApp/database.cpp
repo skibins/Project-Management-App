@@ -42,7 +42,7 @@ void insertDataToUsers(sql::Connection* con, const std::string& name, int age) {
         delete pstmt;
     }
     catch (sql::SQLException e) {
-        std::cout << "Could not insert data to inventory. Error message: " << e.what() << std::endl;
+        std::cout << "Could not insert data to users. Error message: " << e.what() << std::endl;
         exit(1);
     }
 }
