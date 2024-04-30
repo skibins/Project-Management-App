@@ -33,18 +33,12 @@ void insertDataToReports(sql::Connection* con, int projectID, int managerID, int
 // Inserts schedule data
 void insertDataToSchedules(sql::Connection* con, int projectID, const std::string& plannedEndDate, const std::string& actualEndDate);
 
-// Inserts data for a project
-void insertDataToProjects(sql::Connection* con, const std::string& name, const std::string& description, const std::string& startDate, const std::string& endDate, const std::string& status);
-
 // Assigns a task to an employee
 void insertDataToAssignedTasks(sql::Connection* con, int taskID, int employeeID);
 
 // =========================
 // ---- GET DATA ----
 // =========================
-
-// Retrieves project data by its ID
-std::string getProjectByID(sql::Connection* con, int projectID);
 
 // Retrieves task data by its ID
 std::string getTaskByID(sql::Connection* con, int taskID);
@@ -76,8 +70,5 @@ void updateScheduleActualEndDate(sql::Connection* con, int scheduleID, const std
 
 // Updates the number of completed tasks in the report
 void updateReportCompletedTasks(sql::Connection* con, int reportID, int numberOfCompletedTasks);
-
-// Updates the status of the project
-void updateProjectStatus(sql::Connection* con, int projectID, const std::string& status);
 
 #endif

@@ -1,11 +1,21 @@
 ﻿#include <iostream>
 #include "database.h"
+#include "Project.h"
 
 using namespace std;
 
 int main() {
     // Establish connection to the database
     sql::Connection* con = connectToDatabase();
+
+    Project project("Sample Project", "This is a sample project description.", "2024-04-30", "2024-05-30", "In Progress");
+
+    //project.insertDataToDatabase(con);
+
+    cout << project.getProjectByID(con, 2) << endl;
+
+    project.updateProjectStatus(con, 2, "In Progress");
+
 
     // =========================
     // ---- INSERT DATA ----
@@ -29,9 +39,6 @@ int main() {
 
     // Inserting schedule data
     insertDataToSchedules(con, 2, "2024-08-31", "");
-
-    // Inserting data for a project
-    insertDataToProjects(con, "Project 3", "Description of project 3", "2024-07-01", "2024-08-15", "In progress");
     
     // Assigning task to project
     insertDataToAssignedTasks(con, 3, 1);
@@ -56,10 +63,7 @@ int main() {
     // ---- SHOW DATA ----
     // =========================
 
-    // Retrieving and printing project data
-    string projectData = getProjectByID(con, 1);
-    cout << "Project Data:\n" << projectData << endl;
-
+    /*
     // Retrieving and printing task data
     string taskData = getTaskByID(con, 1);
     cout << "Task Data:\n" << taskData << endl;
@@ -87,6 +91,7 @@ int main() {
     // Displaying projects assigned to the manager.
     cout << "Projects attached to manager 1:" << endl;
     displayProjectsByManagerID(con, 1);
+    */
 
     // Closing the database connection
     delete con;

@@ -176,31 +176,6 @@ void insertDataToSchedules(sql::Connection* con, int projectID, const std::strin
     }
 }
 
-// Inserts project data into the database
-void insertDataToProjects(sql::Connection* con, const std::string& name, const std::string& description, const std::string& startDate, const std::string& endDate, const std::string& status) {
-    sql::PreparedStatement* pstmt = nullptr;
-
-    try {
-        // Preparing SQL statement to insert project data
-        pstmt = con->prepareStatement("INSERT INTO projects(name, description, start_date, end_date, status) VALUES(?,?,?,?,?)");
-        pstmt->setString(1, name);
-        pstmt->setString(2, description);
-        pstmt->setString(3, startDate);
-        pstmt->setString(4, endDate);
-        pstmt->setString(5, status);
-        pstmt->execute();
-        std::cout << "Project inserted." << std::endl;
-
-        delete pstmt; // Clean up prepared statement
-    }
-    catch (sql::SQLException e) {
-        // Handling SQL errors
-        std::cout << "Could not insert data to projects. Error message: " << e.what() << std::endl;
-        exit(1);
-    }
-}
-
-
 // Inserts assigned task data into the database
 void insertDataToAssignedTasks(sql::Connection* con, int taskID, int employeeID) {
     sql::PreparedStatement* pstmt = nullptr;
@@ -225,50 +200,6 @@ void insertDataToAssignedTasks(sql::Connection* con, int taskID, int employeeID)
 // =========================
 // ---- GET DATA ----
 // =========================
-
-
-// Retrieves project data from the database based on project ID
-std::string getProjectByID(sql::Connection* con, int projectID) {
-    sql::ResultSet* res;
-    sql::PreparedStatement* pstmt = nullptr;
-
-    try {
-        // Preparing SQL statement to select project data by ID
-        pstmt = con->prepareStatement("SELECT * FROM projects WHERE ID = ?");
-        pstmt->setInt(1, projectID);
-        res = pstmt->executeQuery();
-
-        if (res->next()) {
-            // Retrieving project data from the result set
-            std::string name = res->getString("name");
-            std::string description = res->getString("description");
-            std::string startDate = res->getString("start_date");
-            std::string endDate = res->getString("end_date");
-            std::string status = res->getString("status");
-
-            // Formatting project data into a string
-            std::string projectData = "Project ID: " + std::to_string(projectID) + "\n";
-            projectData += "Name: " + name + "\n";
-            projectData += "Description: " + description + "\n";
-            projectData += "Start Date: " + startDate + "\n";
-            projectData += "End Date: " + endDate + "\n";
-            projectData += "Status: " + status + "\n";
-
-            return projectData;
-        }
-        else {
-            return "Project with ID " + std::to_string(projectID) + " not found.";
-        }
-
-        delete res; // Clean up result set
-        delete pstmt; // Clean up prepared statement
-    }
-    catch (sql::SQLException e) {
-        // Handling SQL errors
-        std::cout << "SQL Exception: " << e.what() << std::endl;
-        exit(1);
-    }
-}
 
 // Retrieves task data from the database based on task ID
 std::string getTaskByID(sql::Connection* con, int taskID) {
@@ -601,27 +532,6 @@ void updateReportCompletedTasks(sql::Connection* con, int reportID, int numberOf
     catch (sql::SQLException e) {
         // Handling SQL errors
         std::cout << "Could not update number of completed tasks for report. Error message: " << e.what() << std::endl;
-        exit(1);
-    }
-}
-
-// Updates the status of a project in the database
-void updateProjectStatus(sql::Connection* con, int projectID, const std::string& status) {
-    sql::PreparedStatement* pstmt = nullptr;
-
-    try {
-        // Preparing SQL statement to update the status of a project
-        pstmt = con->prepareStatement("UPDATE projects SET status = ? WHERE ID = ?");
-        pstmt->setString(1, status);
-        pstmt->setInt(2, projectID);
-        pstmt->executeUpdate();
-        std::cout << "Status updated for project ID: " << projectID << std::endl;
-
-        delete pstmt; // Clean up prepared statement
-    }
-    catch (sql::SQLException e) {
-        // Handling SQL errors
-        std::cout << "Could not update status for project. Error message: " << e.what() << std::endl;
         exit(1);
     }
 }
