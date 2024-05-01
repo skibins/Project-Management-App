@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include "database.h"
 #include "Project.h"
+#include "Task.h"
 
 using namespace std;
 
@@ -8,14 +9,31 @@ int main() {
     // Establish connection to the database
     sql::Connection* con = connectToDatabase();
 
+    // =========================
+    // ---- READY CLASSES ----
+    // =========================
+
+    // Project class usage example
+
     Project project("Sample Project", "This is a sample project description.", "2024-04-30", "2024-05-30", "In Progress");
 
     //project.insertDataToDatabase(con);
 
-    cout << project.getProjectByID(con, 2) << endl;
+    cout << getProjectByID(con, 2) << endl;
 
-    project.updateProjectStatus(con, 2, "In Progress");
+    //updateProjectStatus(con, 2, "another test status");
 
+    // Task class usage example
+
+    Task task("Nazwa zadania", "Opis zadania", "Wysoki", "2024-04-30", "", "In progress", 2);
+
+    //task.insertDataToDatabase(con);
+
+    cout << getTaskByID(con, 2) << endl;
+
+    //insertDataToAssignedTasks(con, 3, 1);
+
+    //updateTaskStatus(con, 2, "another Test status");
 
     // =========================
     // ---- INSERT DATA ----

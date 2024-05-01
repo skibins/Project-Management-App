@@ -63,32 +63,6 @@ void insertDataToEmployees(sql::Connection* con, const std::string& firstName, c
     }
 }
 
-// Inserts task data into the database
-void insertDataToTasks(sql::Connection* con, const std::string& name, const std::string& description, const std::string& priority, const std::string& startDate, const std::string& endDate, const std::string& status, int projectID) {
-    sql::PreparedStatement* pstmt = nullptr;
-
-    try {
-        // Preparing SQL statement to insert task data
-        pstmt = con->prepareStatement("INSERT INTO tasks(name, description, priority, start_date, end_date, status, project_id) VALUES(?,?,?,?,?,?,?)");
-        pstmt->setString(1, name);
-        pstmt->setString(2, description);
-        pstmt->setString(3, priority);
-        pstmt->setString(4, startDate);
-        pstmt->setString(5, endDate);
-        pstmt->setString(6, status);
-        pstmt->setInt(7, projectID);
-        pstmt->execute();
-        std::cout << "Task inserted." << std::endl;
-
-        delete pstmt; // Clean up prepared statement
-    }
-    catch (sql::SQLException e) {
-        // Handling SQL errors
-        std::cout << "Could not insert data to tasks. Error message: " << e.what() << std::endl;
-        exit(1);
-    }
-}
-
 // Inserts data for a project manager into the database
 void insertDataToProjectManagers(sql::Connection* con, const std::string& firstName, const std::string& lastName) {
     sql::PreparedStatement* pstmt = nullptr;
@@ -110,6 +84,7 @@ void insertDataToProjectManagers(sql::Connection* con, const std::string& firstN
     }
 }
 
+// Funkcja powinna znaleźć się w pliku ProjectManager.h
 // Inserts project manager assignment data into the database
 void insertDataToProjectManagerAssignments(sql::Connection* con, int projectID, int managerID) {
     sql::PreparedStatement* pstmt = nullptr;
@@ -176,77 +151,9 @@ void insertDataToSchedules(sql::Connection* con, int projectID, const std::strin
     }
 }
 
-// Inserts assigned task data into the database
-void insertDataToAssignedTasks(sql::Connection* con, int taskID, int employeeID) {
-    sql::PreparedStatement* pstmt = nullptr;
-
-    try {
-        // Preparing SQL statement to insert assigned task data
-        pstmt = con->prepareStatement("INSERT INTO assigned_tasks(task_id, employee_id) VALUES(?,?)");
-        pstmt->setInt(1, taskID);
-        pstmt->setInt(2, employeeID);
-        pstmt->execute();
-        std::cout << "Assigned task inserted." << std::endl;
-
-        delete pstmt; // Clean up prepared statement
-    }
-    catch (sql::SQLException e) {
-        // Handling SQL errors
-        std::cout << "Could not insert data to assigned tasks. Error message: " << e.what() << std::endl;
-        exit(1);
-    }
-}
-
 // =========================
 // ---- GET DATA ----
 // =========================
-
-// Retrieves task data from the database based on task ID
-std::string getTaskByID(sql::Connection* con, int taskID) {
-    sql::ResultSet* res;
-    sql::PreparedStatement* pstmt = nullptr;
-
-    try {
-        // Preparing SQL statement to select task data by ID
-        pstmt = con->prepareStatement("SELECT * FROM tasks WHERE ID = ?");
-        pstmt->setInt(1, taskID);
-        res = pstmt->executeQuery();
-
-        if (res->next()) {
-            // Retrieving task data from the result set
-            std::string name = res->getString("name");
-            std::string description = res->getString("description");
-            std::string priority = res->getString("priority");
-            std::string startDate = res->getString("start_date");
-            std::string endDate = res->getString("end_date");
-            std::string status = res->getString("status");
-            int projectID = res->getInt("project_id");
-
-            // Formatting task data into a string
-            std::string taskData = "Task ID: " + std::to_string(taskID) + "\n";
-            taskData += "Name: " + name + "\n";
-            taskData += "Description: " + description + "\n";
-            taskData += "Priority: " + priority + "\n";
-            taskData += "Start Date: " + startDate + "\n";
-            taskData += "End Date: " + endDate + "\n";
-            taskData += "Status: " + status + "\n";
-            taskData += "Project ID: " + std::to_string(projectID) + "\n";
-
-            return taskData;
-        }
-        else {
-            return "Task with ID " + std::to_string(taskID) + " not found.";
-        }
-
-        delete res; // Clean up result set
-        delete pstmt; // Clean up prepared statement
-    }
-    catch (sql::SQLException e) {
-        // Handling SQL errors
-        std::cout << "SQL Exception: " << e.what() << std::endl;
-        exit(1);
-    }
-}
 
 // Retrieves employee data from the database based on employee ID
 std::string getEmployeeByID(sql::Connection* con, int employeeID) {
@@ -404,6 +311,7 @@ std::string getScheduleByID(sql::Connection* con, int scheduleID) {
     }
 }
 
+// Funkcja powinna znaleźć się w pliku Employee.h
 void displayTasksByEmployeeID(sql::Connection* con, int employeeID) {
     sql::ResultSet* res;
     sql::PreparedStatement* pstmt = nullptr;
@@ -448,6 +356,7 @@ void displayTasksByEmployeeID(sql::Connection* con, int employeeID) {
     }
 }
 
+// Funkcja powinna znaleźć się w pliku ProjectManager.h
 void displayProjectsByManagerID(sql::Connection* con, int managerID) {
     sql::ResultSet* res;
     sql::PreparedStatement* pstmt = nullptr;

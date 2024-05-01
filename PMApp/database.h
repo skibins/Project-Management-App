@@ -18,9 +18,6 @@ sql::Connection* connectToDatabase();
 // Inserts data for an employee
 void insertDataToEmployees(sql::Connection* con, const std::string& firstName, const std::string& lastName, const std::string& position);
 
-// Inserts task data
-void insertDataToTasks(sql::Connection* con, const std::string& name, const std::string& description, const std::string& priority, const std::string& startDate, const std::string& endDate, const std::string& status, int projectID);
-
 // Inserts data for a project manager
 void insertDataToProjectManagers(sql::Connection* con, const std::string& firstName, const std::string& lastName);
 
@@ -33,15 +30,9 @@ void insertDataToReports(sql::Connection* con, int projectID, int managerID, int
 // Inserts schedule data
 void insertDataToSchedules(sql::Connection* con, int projectID, const std::string& plannedEndDate, const std::string& actualEndDate);
 
-// Assigns a task to an employee
-void insertDataToAssignedTasks(sql::Connection* con, int taskID, int employeeID);
-
 // =========================
 // ---- GET DATA ----
 // =========================
-
-// Retrieves task data by its ID
-std::string getTaskByID(sql::Connection* con, int taskID);
 
 // Retrieves employee data by their ID
 std::string getEmployeeByID(sql::Connection* con, int employeeID);

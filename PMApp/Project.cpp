@@ -1,6 +1,5 @@
 ﻿#include "Project.h"
 #include <iostream>
-#include <stdlib.h>
 #include <cppconn/driver.h>
 #include <cppconn/exception.h>
 #include <cppconn/prepared_statement.h>
@@ -31,7 +30,7 @@ void Project::insertDataToDatabase(sql::Connection* con) {
     }
 }
 
-std::string Project::getProjectByID(sql::Connection* con, int projectID) {
+std::string getProjectByID(sql::Connection* con, int projectID) {
     sql::ResultSet* res;
     sql::PreparedStatement* pstmt = nullptr;
 
@@ -73,22 +72,40 @@ std::string Project::getProjectByID(sql::Connection* con, int projectID) {
     }
 }
 
-void Project::updateProjectStatus(sql::Connection* con, int projectID, const std::string& status) {
+void updateProjectStatus(sql::Connection* con, int projectID, const std::string& status) {
+    sql::ResultSet* res = nullptr;
     sql::PreparedStatement* pstmt = nullptr;
 
     try {
-        // Preparing SQL statement to update the status of a project
+        // Check if the project with the given ID exists in the database
+        pstmt = con->prepareStatement("SELECT ID FROM projects WHERE ID = ?");
+        pstmt->setInt(1, projectID);
+        res = pstmt->executeQuery();
+
+        if (!res->next()) {
+            std::cout << "Cannot update status - project with the given ID does not exist." << std::endl;
+            delete pstmt;
+            delete res;
+            return; // Exit the function if the project does not exist
+        }
+
+        // Update the project status
+        delete pstmt; // Delete the existing prepared statement
+
         pstmt = con->prepareStatement("UPDATE projects SET status = ? WHERE ID = ?");
         pstmt->setString(1, status);
         pstmt->setInt(2, projectID);
         pstmt->executeUpdate();
         std::cout << "Status updated for project ID: " << projectID << std::endl;
 
-        delete pstmt; // Clean up prepared statement
+        delete pstmt; // Delete the prepared statement
+        delete res; // Delete the result set
     }
     catch (sql::SQLException e) {
-        // Handling SQL errors
-        std::cout << "Could not update status for project. Error message: " << e.what() << std::endl;
+        // Handle SQL errors
+        std::cout << "SQL Exception: " << e.what() << std::endl;
+        if (res) delete res; // Delete the result set in case of an error
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
         exit(1);
     }
 }
