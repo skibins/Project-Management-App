@@ -43,9 +43,6 @@ int main() {
     // Inserting data for an employee
     insertDataToEmployees(con, "Janek", "Ski", "Developer");
     
-    // Inserting task data
-    insertDataToTasks(con, "Task 3", "Description of task 3", "Medium", "2024-07-01", "2024-07-15", "Planned", 1);
-    
     // Inserting data for a project manager
     insertDataToProjectManagers(con, "Carol", "Johnson");
 
@@ -57,9 +54,6 @@ int main() {
 
     // Inserting schedule data
     insertDataToSchedules(con, 2, "2024-08-31", "");
-    
-    // Assigning task to project
-    insertDataToAssignedTasks(con, 3, 1);
     */
 
     // =========================
@@ -82,10 +76,6 @@ int main() {
     // =========================
 
     /*
-    // Retrieving and printing task data
-    string taskData = getTaskByID(con, 1);
-    cout << "Task Data:\n" << taskData << endl;
-
     // Retrieving and printing employee data
     string employeeData = getEmployeeByID(con, 1);
     cout << "Employee Data:\n" << employeeData << endl;
