@@ -5,7 +5,7 @@
 #include <cppconn/prepared_statement.h>
 
 Schedule::Schedule(int ScheduleProjectID, const std::string& SchedulePlannedEndDate, const std::string& ScheduleActualEndDate)
-    : projectID(ScheduleProjectID), plannedEndDate(SchedulePlannedEndDate), actualEndDate(ScheduleActualEndDate);
+    : projectID(ScheduleProjectID), plannedEndDate(SchedulePlannedEndDate), actualEndDate(ScheduleActualEndDate) {};
 
 void insertDataToSchedules(sql::Connection* con, int projectID, const std::string& plannedEndDate, const std::string& actualEndDate) {
     sql::PreparedStatement* pstmt = nullptr;
