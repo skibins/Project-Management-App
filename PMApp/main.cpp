@@ -17,6 +17,7 @@ int main() {
 
     Project project("Sample Project", "This is a sample project description.", "2024-04-30", "2024-05-30", "In Progress");
 
+
     //project.insertDataToDatabase(con);
 
     cout << getProjectByID(con, 2) << endl;
