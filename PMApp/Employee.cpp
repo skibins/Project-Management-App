@@ -5,6 +5,29 @@
 #include <cppconn/prepared_statement.h>
 
 
+Employee::Employee(const std::string& employeeName, const std::string& employeelastName, const std::string& employeeposition)
+    : firstName(employeeName), lastName(employeelastName), position(employeeposition) {}
+
+void Employee::insertDataToDatabase(sql::Connection* con) {
+    sql::PreparedStatement* pstmt = nullptr;
+
+    try {
+        // Preparing SQL statement to insert employee data
+        pstmt = con->prepareStatement("INSERT INTO employees(first_name, last_name, position) VALUES(?,?,?)");
+        pstmt->setString(1, firstName);
+        pstmt->setString(2, lastName);
+        pstmt->setString(3, position);
+        pstmt->execute();
+        std::cout << "Employee inserted." << std::endl;
+
+        delete pstmt; // Clean up prepared statement
+    }
+    catch (sql::SQLException e) {
+        // Handling SQL errors
+        std::cout << "Could not insert data to employees. Error message: " << e.what() << std::endl;
+        exit(1);
+    }
+}
 
 std::string getEmployeeByID(sql::Connection* con, int employeeID) {
     sql::ResultSet* res;
@@ -40,27 +63,6 @@ std::string getEmployeeByID(sql::Connection* con, int employeeID) {
     catch (sql::SQLException e) {
         // Handling SQL errors
         std::cout << "SQL Exception: " << e.what() << std::endl;
-        exit(1);
-    }
-}
-
-void insertDataToEmployees(sql::Connection* con, const std::string& firstName, const std::string& lastName, const std::string& position) {
-    sql::PreparedStatement* pstmt = nullptr;
-
-    try {
-        // Preparing SQL statement to insert employee data
-        pstmt = con->prepareStatement("INSERT INTO employees(first_name, last_name, position) VALUES(?,?,?)");
-        pstmt->setString(1, firstName);
-        pstmt->setString(2, lastName);
-        pstmt->setString(3, position);
-        pstmt->execute();
-        std::cout << "Employee inserted." << std::endl;
-
-        delete pstmt; // Clean up prepared statement
-    }
-    catch (sql::SQLException e) {
-        // Handling SQL errors
-        std::cout << "Could not insert data to employees. Error message: " << e.what() << std::endl;
         exit(1);
     }
 }

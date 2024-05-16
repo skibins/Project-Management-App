@@ -7,8 +7,6 @@ std::string getScheduleByID(sql::Connection* con, int scheduleID);
 
 void updateScheduleActualEndDate(sql::Connection* con, int scheduleID, const std::string& actualEndDate);
 
-void insertDataToSchedules(sql::Connection* con, int projectID, const std::string& plannedEndDate, const std::string& actualEndDate);
-
 class Schedule
 {
 public:

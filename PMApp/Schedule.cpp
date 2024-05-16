@@ -7,7 +7,8 @@
 Schedule::Schedule(int ScheduleProjectID, const std::string& SchedulePlannedEndDate, const std::string& ScheduleActualEndDate)
     : projectID(ScheduleProjectID), plannedEndDate(SchedulePlannedEndDate), actualEndDate(ScheduleActualEndDate) {};
 
-void insertDataToSchedules(sql::Connection* con, int projectID, const std::string& plannedEndDate, const std::string& actualEndDate) {
+void Schedule::insertDataToDatabase(sql::Connection* con)
+{
     sql::PreparedStatement* pstmt = nullptr;
 
     try {
@@ -26,6 +27,7 @@ void insertDataToSchedules(sql::Connection* con, int projectID, const std::strin
         std::cout << "Could not insert data to schedules. Error message: " << e.what() << std::endl;
         exit(1);
     }
+	
 }
 
 std::string getScheduleByID(sql::Connection* con, int scheduleID) {
