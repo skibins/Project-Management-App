@@ -41,28 +41,6 @@ sql::Connection* connectToDatabase() {
 // ---- INSERT DATA ----
 // =========================
 
-// Inserts data for an employee into the database
-void insertDataToEmployees(sql::Connection* con, const std::string& firstName, const std::string& lastName, const std::string& position) {
-    sql::PreparedStatement* pstmt = nullptr;
-
-    try {
-        // Preparing SQL statement to insert employee data
-        pstmt = con->prepareStatement("INSERT INTO employees(first_name, last_name, position) VALUES(?,?,?)");
-        pstmt->setString(1, firstName);
-        pstmt->setString(2, lastName);
-        pstmt->setString(3, position);
-        pstmt->execute();
-        std::cout << "Employee inserted." << std::endl;
-
-        delete pstmt; // Clean up prepared statement
-    }
-    catch (sql::SQLException e) {
-        // Handling SQL errors
-        std::cout << "Could not insert data to employees. Error message: " << e.what() << std::endl;
-        exit(1);
-    }
-}
-
 // Inserts data for a project manager into the database
 void insertDataToProjectManagers(sql::Connection* con, const std::string& firstName, const std::string& lastName) {
     sql::PreparedStatement* pstmt = nullptr;
@@ -129,70 +107,9 @@ void insertDataToReports(sql::Connection* con, int projectID, int managerID, int
     }
 }
 
-// Inserts schedule data into the database
-void insertDataToSchedules(sql::Connection* con, int projectID, const std::string& plannedEndDate, const std::string& actualEndDate) {
-    sql::PreparedStatement* pstmt = nullptr;
-
-    try {
-        // Preparing SQL statement to insert schedule data
-        pstmt = con->prepareStatement("INSERT INTO schedules(project_id, planned_end_date, actual_end_date) VALUES(?,?,?)");
-        pstmt->setInt(1, projectID);
-        pstmt->setString(2, plannedEndDate);
-        pstmt->setString(3, actualEndDate);
-        pstmt->execute();
-        std::cout << "Schedule inserted." << std::endl;
-
-        delete pstmt; // Clean up prepared statement
-    }
-    catch (sql::SQLException e) {
-        // Handling SQL errors
-        std::cout << "Could not insert data to schedules. Error message: " << e.what() << std::endl;
-        exit(1);
-    }
-}
-
 // =========================
 // ---- GET DATA ----
 // =========================
-
-// Retrieves employee data from the database based on employee ID
-std::string getEmployeeByID(sql::Connection* con, int employeeID) {
-    sql::ResultSet* res;
-    sql::PreparedStatement* pstmt = nullptr;
-
-    try {
-        // Preparing SQL statement to select employee data by ID
-        pstmt = con->prepareStatement("SELECT * FROM employees WHERE ID = ?");
-        pstmt->setInt(1, employeeID);
-        res = pstmt->executeQuery();
-
-        if (res->next()) {
-            // Retrieving employee data from the result set
-            std::string firstName = res->getString("first_name");
-            std::string lastName = res->getString("last_name");
-            std::string position = res->getString("position");
-
-            // Formatting employee data into a string
-            std::string employeeData = "Employee ID: " + std::to_string(employeeID) + "\n";
-            employeeData += "First Name: " + firstName + "\n";
-            employeeData += "Last Name: " + lastName + "\n";
-            employeeData += "Position: " + position + "\n";
-
-            return employeeData;
-        }
-        else {
-            return "Employee with ID " + std::to_string(employeeID) + " not found.";
-        }
-
-        delete res; // Clean up result set
-        delete pstmt; // Clean up prepared statement
-    }
-    catch (sql::SQLException e) {
-        // Handling SQL errors
-        std::cout << "SQL Exception: " << e.what() << std::endl;
-        exit(1);
-    }
-}
 
 // Retrieves project manager data from the database based on manager ID
 std::string getProjectManagerByID(sql::Connection* con, int managerID) {
@@ -272,90 +189,6 @@ std::string getReportByID(sql::Connection* con, int reportID) {
     }
 }
 
-// Retrieves schedule data from the database based on schedule ID
-std::string getScheduleByID(sql::Connection* con, int scheduleID) {
-    sql::ResultSet* res;
-    sql::PreparedStatement* pstmt = nullptr;
-
-    try {
-        // Preparing SQL statement to select schedule data by ID
-        pstmt = con->prepareStatement("SELECT * FROM schedules WHERE ID = ?");
-        pstmt->setInt(1, scheduleID);
-        res = pstmt->executeQuery();
-
-        if (res->next()) {
-            // Retrieving schedule data from the result set
-            int projectID = res->getInt("project_id");
-            std::string plannedEndDate = res->getString("planned_end_date");
-            std::string actualEndDate = res->getString("actual_end_date");
-
-            // Formatting schedule data into a string
-            std::string scheduleData = "Schedule ID: " + std::to_string(scheduleID) + "\n";
-            scheduleData += "Project ID: " + std::to_string(projectID) + "\n";
-            scheduleData += "Planned End Date: " + plannedEndDate + "\n";
-            scheduleData += "Actual End Date: " + actualEndDate + "\n";
-
-            return scheduleData;
-        }
-        else {
-            return "Schedule with ID " + std::to_string(scheduleID) + " not found.";
-        }
-
-        delete res; // Clean up result set
-        delete pstmt; // Clean up prepared statement
-    }
-    catch (sql::SQLException e) {
-        // Handling SQL errors
-        std::cout << "SQL Exception: " << e.what() << std::endl;
-        exit(1);
-    }
-}
-
-// Funkcja powinna znaleźć się w pliku Employee.h
-void displayTasksByEmployeeID(sql::Connection* con, int employeeID) {
-    sql::ResultSet* res;
-    sql::PreparedStatement* pstmt = nullptr;
-
-    try {
-        // Prepare SQL query to retrieve tasks assigned to an employee with the given ID
-        pstmt = con->prepareStatement("SELECT t.* FROM tasks t INNER JOIN assigned_tasks a ON t.ID = a.task_id WHERE a.employee_id = ?");
-        pstmt->setInt(1, employeeID);
-        res = pstmt->executeQuery();
-
-        // Loop through the query results
-        while (res->next()) {
-            int taskID = res->getInt("ID");
-            std::string name = res->getString("name");
-            std::string description = res->getString("description");
-            std::string priority = res->getString("priority");
-            std::string startDate = res->getString("start_date");
-            std::string endDate = res->getString("end_date");
-            std::string status = res->getString("status");
-            int projectID = res->getInt("project_id");
-
-            // Display task data
-            std::cout << "Task ID: " << taskID << std::endl;
-            std::cout << "Name: " << name << std::endl;
-            std::cout << "Description: " << description << std::endl;
-            std::cout << "Priority: " << priority << std::endl;
-            std::cout << "Start Date: " << startDate << std::endl;
-            std::cout << "End Date: " << endDate << std::endl;
-            std::cout << "Status: " << status << std::endl;
-            std::cout << "Project ID: " << projectID << std::endl;
-            std::cout << std::endl;
-        }
-
-        // Free resources
-        delete res;
-        delete pstmt;
-    }
-    catch (sql::SQLException e) {
-        // Handle SQL exceptions
-        std::cout << "SQL Exception: " << e.what() << std::endl;
-        exit(1);
-    }
-}
-
 // Funkcja powinna znaleźć się w pliku ProjectManager.h
 void displayProjectsByManagerID(sql::Connection* con, int managerID) {
     sql::ResultSet* res;
@@ -401,28 +234,6 @@ void displayProjectsByManagerID(sql::Connection* con, int managerID) {
 // =========================
 // ---- UPDATE DATA ----
 // =========================
-
-// Updates the actual end date for a schedule in the database
-void updateScheduleActualEndDate(sql::Connection* con, int scheduleID, const std::string& actualEndDate) {
-    sql::PreparedStatement* pstmt = nullptr;
-
-    try {
-        // Preparing SQL statement to update actual end date for a schedule
-        pstmt = con->prepareStatement("UPDATE schedules SET actual_end_date = ? WHERE ID = ?");
-        pstmt->setString(1, actualEndDate);
-        pstmt->setInt(2, scheduleID);
-        pstmt->executeUpdate();
-        std::cout << "Actual end date updated for schedule ID: " << scheduleID << std::endl;
-
-        delete pstmt; // Clean up prepared statement
-    }
-    catch (sql::SQLException e) {
-        // Handling SQL errors
-        std::cout << "Could not update actual end date for schedule. Error message: " << e.what() << std::endl;
-        exit(1);
-    }
-}
-
 
 // Updates the number of completed tasks for a report in the database
 void updateReportCompletedTasks(sql::Connection* con, int reportID, int numberOfCompletedTasks) {
