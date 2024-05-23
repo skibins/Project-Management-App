@@ -2,6 +2,8 @@
 #include "database.h"
 #include "Project.h"
 #include "Task.h"
+#include "Employee.h"
+#include "Schedule.h"
 
 using namespace std;
 
@@ -35,6 +37,22 @@ int main() {
     //insertDataToAssignedTasks(con, 3, 1);
 
     //updateTaskStatus(con, 2, "another Test status");
+
+    // Employee class usage example
+
+    Employee employee("Jan", "Kowalski", "pracownik");
+
+    //employee.insertDataToDatabase(con);
+
+    cout << getEmployeeByID(con, 2) << endl;
+
+    // Schedule class usage example
+
+    Schedule schedule(1, "2024-02-11", "2024-20-11");
+
+    //schedule.insertDataToDatabase(con);
+
+    cout << getScheduleByID(con, 2) << endl;
 
     // =========================
     // ---- INSERT DATA ----
