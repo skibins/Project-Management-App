@@ -4,10 +4,8 @@
 #include "Task.h"
 #include "Employee.h"
 #include "Schedule.h"
-<<<<<<< Updated upstream
-=======
 #include "ProjectManager.h"
->>>>>>> Stashed changes
+#include "Report.h"
 
 using namespace std;
 
@@ -21,7 +19,7 @@ int main() {
 
     // ProjectManager uasage example
 
-    ProjectManager projectManager("John", "Kripton");
+    //ProjectManager projectManager("John", "Kripton");
 
     //projectManager.insertDataToDatabase(con);
 
@@ -55,23 +53,33 @@ int main() {
 
     // Employee class usage example
 
-    Employee employee("Jan", "Kowalski", "pracownik");
+    //Employee employee("Jan", "Kowalski", "pracownik");
 
     //employee.insertDataToDatabase(con);
 
     //displayTasksByEmployeeID(con, 2);
 
-    cout << getEmployeeByID(con, 2) << endl;
+    //cout << getEmployeeByID(con, 2) << endl;
 
     // Schedule class usage example
 
-    Schedule schedule(0, "2024-02-11", "2024-20-11");
+    //Schedule schedule(0, "2024-02-11", "2024-20-11");
 
     //schedule.insertDataToDatabase(con);
 
     //updateScheduleActualEndDate(con, 2, "2025-11-11");
 
-    cout << getScheduleByID(con, 2) << endl;
+    //cout << getScheduleByID(con, 2) << endl;
+
+    // Report class usage example
+
+    //Report report1(1, 1, 7, "test");
+
+    //report1.insertDataToDatabase(con);
+
+    //cout << getReportByID(con, 1);
+
+    //updateReportCompletedTasks(con, 1, 6);
 
     // =========================
     // ---- INSERT DATA ----
