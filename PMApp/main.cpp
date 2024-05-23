@@ -44,13 +44,17 @@ int main() {
 
     //employee.insertDataToDatabase(con);
 
+    //displayTasksByEmployeeID(con, 2);
+
     cout << getEmployeeByID(con, 2) << endl;
 
     // Schedule class usage example
 
-    Schedule schedule(1, "2024-02-11", "2024-20-11");
+    Schedule schedule(0, "2024-02-11", "2024-20-11");
 
     //schedule.insertDataToDatabase(con);
+
+    //updateScheduleActualEndDate(con, 2, "2025-11-11");
 
     cout << getScheduleByID(con, 2) << endl;
 
@@ -72,6 +76,7 @@ int main() {
     insertDataToReports(con, 1, 1, 2, "Additional information for project 1");
 
     // Inserting schedule data
+    
     insertDataToSchedules(con, 2, "2024-08-31", "");
     */
 
