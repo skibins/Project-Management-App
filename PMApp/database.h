@@ -16,10 +16,10 @@ sql::Connection* connectToDatabase();
 // =========================
 
 // Inserts data for a project manager
-void insertDataToProjectManagers(sql::Connection* con, const std::string& firstName, const std::string& lastName);
+//void insertDataToProjectManagers(sql::Connection* con, const std::string& firstName, const std::string& lastName);
 
 // Assigns a project manager to a project
-void insertDataToProjectManagerAssignments(sql::Connection* con, int projectID, int managerID);
+//void insertDataToProjectManagerAssignments(sql::Connection* con, int projectID, int managerID);
 
 // Inserts report data
 void insertDataToReports(sql::Connection* con, int projectID, int managerID, int numberOfCompletedTasks, const std::string& otherInformation);
@@ -29,13 +29,13 @@ void insertDataToReports(sql::Connection* con, int projectID, int managerID, int
 // =========================
 
 // Retrieves project manager data by their ID
-std::string getProjectManagerByID(sql::Connection* con, int managerID);
+//std::string getProjectManagerByID(sql::Connection* con, int managerID);
 
 // Retrieves report data by its ID
 std::string getReportByID(sql::Connection* con, int reportID);
 
 // Displays projects attached to the manager by ID.
-void displayProjectsByManagerID(sql::Connection* con, int managerID);
+//void displayProjectsByManagerID(sql::Connection* con, int managerID);
 
 // =========================
 // ---- UPDATE DATA ----
