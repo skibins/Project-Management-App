@@ -3,7 +3,7 @@
 #include <string>
 #include <mysql_connection.h>
 
-std::string getScheduleByID(sql::Connection* con, int scheduleID);
+std::string getScheduleByProjectID(sql::Connection* con, int scheduleID);
 
 void updateScheduleActualEndDate(sql::Connection* con, int scheduleID, const std::string& actualEndDate);
 

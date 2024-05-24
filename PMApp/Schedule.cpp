@@ -30,36 +30,46 @@ void Schedule::insertDataToDatabase(sql::Connection* con)
 	
 }
 
-std::string getScheduleByID(sql::Connection* con, int scheduleID) {
+std::string getScheduleByProjectID(sql::Connection* con, int wantedProjectID) {
     sql::ResultSet* res;
     sql::PreparedStatement* pstmt = nullptr;
 
     try {
         // Preparing SQL statement to select schedule data by ID
-        pstmt = con->prepareStatement("SELECT * FROM schedules WHERE ID = ?");
-        pstmt->setInt(1, scheduleID);
+        pstmt = con->prepareStatement("SELECT schedules.*, projects.name FROM schedules JOIN projects ON schedules.project_id = projects.ID WHERE schedules.project_id = ? ;");
+        pstmt->setInt(1, wantedProjectID);
         res = pstmt->executeQuery();
 
-        if (res->next()) {
+        std::string scheduleData = "";  // Initialize an empty string to store data
+
+        // Loop through the result set
+        while (res->next()) {
             // Retrieving schedule data from the result set
+            int ID = res->getInt("ID");
             int projectID = res->getInt("project_id");
+            std::string projectName = res->getString("name");
             std::string plannedEndDate = res->getString("planned_end_date");
             std::string actualEndDate = res->getString("actual_end_date");
 
-            // Formatting schedule data into a string
-            std::string scheduleData = "Schedule ID: " + std::to_string(scheduleID) + "\n";
+            // Formatting schedule data and appending to the string
+            scheduleData += "===========\n";
+            scheduleData += "Schedule no.: " + std::to_string(ID) + "\n";
             scheduleData += "Project ID: " + std::to_string(projectID) + "\n";
+            scheduleData += "Project Name: " + projectName + "\n";
             scheduleData += "Planned End Date: " + plannedEndDate + "\n";
-            scheduleData += "Actual End Date: " + actualEndDate + "\n";
-
-            return scheduleData;
+            scheduleData += "Actual End Date: " + actualEndDate + "\n===========\n\n";
         }
-        else {
-            return "Schedule with ID " + std::to_string(scheduleID) + " not found.";
+
+        // Check if any records were found
+        if (scheduleData.empty()) {
+            scheduleData = "Schedule with project ID " + std::to_string(wantedProjectID) + " not found.";
         }
 
         delete res; // Clean up result set
         delete pstmt; // Clean up prepared statement
+
+        return scheduleData;
+
     }
     catch (sql::SQLException e) {
         // Handling SQL errors

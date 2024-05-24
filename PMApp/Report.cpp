@@ -28,38 +28,50 @@ void Report::insertDataToDatabase(sql::Connection* con)
         exit(1);
     }
 };
-std::string getReportByID(sql::Connection* con, int reportID) {
+std::string getReportByProjectID(sql::Connection* con, int wantedProjectID) {
     sql::ResultSet* res;
     sql::PreparedStatement* pstmt = nullptr;
 
     try {
         // Preparing SQL statement to select report data by ID
-        pstmt = con->prepareStatement("SELECT * FROM reports WHERE ID = ?");
-        pstmt->setInt(1, reportID);
+        pstmt = con->prepareStatement("SELECT reports.*, projects.name FROM reports JOIN projects ON reports.project_id = projects.ID WHERE project_id = ?");
+        pstmt->setInt(1, wantedProjectID);
         res = pstmt->executeQuery();
 
-        if (res->next()) {
+        std::string reportData = "";
+
+        // Loop through the result set
+        while (res->next()) {
             // Retrieving report data from the result set
+            int ID = res->getInt("ID");
             int projectID = res->getInt("project_id");
             int managerID = res->getInt("manager_id");
+            std::string projectName = res->getString("name");
             int numberOfCompletedTasks = res->getInt("number_of_completed_tasks");
             std::string otherInformation = res->getString("other_information");
+            std::string reportDate = res->getString("report_date");
 
-            // Formatting report data into a string
-            std::string reportData = "Report ID: " + std::to_string(reportID) + "\n";
+            // Formatting report data and appending to the string
+            reportData += "===========\n";
+            reportData += "Report no.: " + std::to_string(ID) + "\n";
             reportData += "Project ID: " + std::to_string(projectID) + "\n";
+            reportData += "Project Name: " + projectName + "\n";
             reportData += "Manager ID: " + std::to_string(managerID) + "\n";
             reportData += "Number of Completed Tasks: " + std::to_string(numberOfCompletedTasks) + "\n";
             reportData += "Other Information: " + otherInformation + "\n";
-
-            return reportData;
+            reportData += "Report creation date: " + reportDate + "\n===========\n\n";
         }
-        else {
-            return "Report with ID " + std::to_string(reportID) + " not found.";
+
+        // Check if any records were found
+        if (reportData.empty()) {
+            reportData = "Report with project ID " + std::to_string(wantedProjectID) + " not found.";
         }
 
         delete res; // Clean up result set
         delete pstmt; // Clean up prepared statement
+
+        return reportData;
+
     }
     catch (sql::SQLException e) {
         // Handling SQL errors

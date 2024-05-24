@@ -4,7 +4,7 @@
 #include <mysql_connection.h>
 #include "database.h"
 
-std::string getReportByID(sql::Connection* con, int reportID);
+std::string getReportByProjectID(sql::Connection* con, int reportID);
 void updateReportCompletedTasks(sql::Connection* con, int reportID, int numberOfCompletedTasks);
 
 class Report
