@@ -4,7 +4,15 @@
 #include <cppconn/exception.h>
 #include <cppconn/prepared_statement.h>
 
-ProjectManager::ProjectManager(const std::string& newFirstName, const std::string& newLastName) : firstName(newFirstName), lastName(newLastName) {};
+ProjectManager::ProjectManager(const std::string& newFirstName, const std::string& newLastName) {
+    if (newFirstName.empty() || newLastName.empty()) {
+        std::cout << "Both first name and last name must be provided." << std::endl;
+        return;
+    }
+    this->firstName = newFirstName;
+    this->lastName = newLastName;
+}
+
 
 void ProjectManager::insertDataToDatabase(sql::Connection* con) {
     sql::PreparedStatement* pstmt = nullptr;

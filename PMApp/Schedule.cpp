@@ -1,11 +1,49 @@
-#include "Schedule.h"
+﻿#include "Schedule.h"
+#include "autofillFuncs.h"
 #include <iostream>
 #include <cppconn/driver.h>
 #include <cppconn/exception.h>
 #include <cppconn/prepared_statement.h>
 
-Schedule::Schedule(int ScheduleProjectID, const std::string& SchedulePlannedEndDate, const std::string& ScheduleActualEndDate)
-    : projectID(ScheduleProjectID), plannedEndDate(SchedulePlannedEndDate), actualEndDate(ScheduleActualEndDate) {};
+Schedule::Schedule(sql::Connection* con, int ScheduleProjectID, const std::string& ScheduleActualEndDate) {
+    if (ScheduleProjectID <= 0 || ScheduleActualEndDate.empty()) {
+        std::cout << "All fields must be provided, project ID must be greater than 0." << std::endl;
+        return;
+    }
+    this->projectID = ScheduleProjectID;
+    this->actualEndDate = ScheduleActualEndDate;
+
+    std::string plannedEndDateValue = fillPlannedEndDateFromDatabase(con, ScheduleProjectID);
+    this->plannedEndDate = plannedEndDateValue;
+}
+
+std::string fillPlannedEndDateFromDatabase(sql::Connection* con, int ScheduleProjectID) {
+    sql::ResultSet* res;
+    sql::PreparedStatement* pstmt = nullptr;
+
+    try {
+        pstmt = con->prepareStatement("SELECT end_date FROM projects WHERE ID = ?");
+        pstmt->setInt(1, ScheduleProjectID);
+        res = pstmt->executeQuery();
+
+        if (res->next()) {
+            std::string plannedEndDate = res->getString("end_date");
+            return plannedEndDate;
+        }
+        else {
+            std::cout << "Project with ID " << ScheduleProjectID << " not found in the database." << std::endl;
+            return "";
+        }
+    }
+    catch (sql::SQLException& e) {
+        std::cout << "SQLException: " << e.what() << std::endl;
+        return "";
+    }
+
+    delete res;
+    delete pstmt;
+}
+
 
 void Schedule::insertDataToDatabase(sql::Connection* con)
 {

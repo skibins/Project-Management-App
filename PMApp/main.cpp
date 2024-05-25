@@ -16,10 +16,10 @@ int main() {
     // =========================
     // ---- READY CLASSES ----
     // =========================
-
+    
     // ProjectManager uasage example
 
-    //ProjectManager projectManager("John", "Kripton");
+    //ProjectManager projectManager("John", "test");
 
     //projectManager.insertDataToDatabase(con);
 
@@ -33,23 +33,27 @@ int main() {
 
     // Project class usage example
 
-    //Project project("Sample Project", "This is a sample project description.", "2024-04-30", "2024-05-30", "In Progress");
+    //Project project("Sample Project", "Desc", "2024-04-30", "2024-05-30", "In Progress");
 
     //project.insertDataToDatabase(con);
 
     //cout << getProjectByID(con, 2) << endl;
+
+    //cout << getAllProjects(con) << endl;
 
     //updateProjectStatus(con, 2, "another test status");
 
     // =========================
 
     // Task class usage example
-
+    
     //Task task("Nazwa zadania", "Opis zadania", "Wysoki", "2024-04-30", "", "In progress", 2);
 
     //task.insertDataToDatabase(con);
 
     //cout << getTaskByID(con, 2) << endl;
+
+    //cout << getAllTasks(con) << endl;
 
     //insertDataToAssignedTasks(con, 3, 1);
 
@@ -58,8 +62,8 @@ int main() {
     // =========================
 
     // Employee class usage example
-
-    //Employee employee("Jan", "Kowalski", "pracownik");
+    
+    //Employee employee("Jan", "Nazwisko", "pracownik");
 
     //employee.insertDataToDatabase(con);
 
@@ -71,7 +75,7 @@ int main() {
 
     // Schedule class usage example
 
-    //Schedule schedule(2, "2024-02-11", "2024-20-11");
+    //Schedule schedule(con, 2, "2024-02-11");
 
     //schedule.insertDataToDatabase(con);
 
@@ -83,11 +87,11 @@ int main() {
 
     // Report class usage example
 
-    //Report report1(1, 1, 5, "test");
+    //Report report1(con, 1, "test");
 
     //report1.insertDataToDatabase(con);
 
-    cout << getReportByProjectID(con, 1);
+    //cout << getReportByProjectID(con, 1);
 
     //updateReportCompletedTasks(con, 1, 6);
 

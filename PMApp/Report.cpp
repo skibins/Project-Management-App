@@ -1,10 +1,80 @@
-#include "Report.h"
+﻿#include "Report.h"
+#include "autofillFuncs.h"
 #include <iostream>
 #include <cppconn/driver.h>
 #include <cppconn/exception.h>
 #include <cppconn/prepared_statement.h>
 
-Report::Report(int newProjectID, int newManagerID, int newNumberOfCompletedTask, const std::string& newOtherInformation) : numberOfCompletedTasks(newNumberOfCompletedTask), otherInformation(newOtherInformation), projectID(newProjectID), managerID(newManagerID) {}
+Report::Report(sql::Connection* con, int newProjectID, const std::string& newOtherInformation) {
+    if (newProjectID <= 0) {
+        std::cout << "Project ID must be greater than 0." << std::endl;
+        return;
+    }
+    this->otherInformation = newOtherInformation;
+    this->projectID = newProjectID;
+
+    int managerIDValue = fillManagerIdFromDatabase(con, newProjectID);
+    int completedTasks = fillCompletedTasksFromDatabase(con, newProjectID);
+
+    this->managerID = managerIDValue;
+    this->numberOfCompletedTasks = completedTasks;
+
+    
+}
+
+int fillManagerIdFromDatabase(sql::Connection* con, int projectID) {
+    sql::ResultSet* res;
+    sql::PreparedStatement* pstmt = nullptr;
+    int managerID = -1;
+
+    try {
+        pstmt = con->prepareStatement("SELECT manager_id FROM project_manager_assignments WHERE project_id = ?");
+        pstmt->setInt(1, projectID);
+        res = pstmt->executeQuery();
+
+        if (res->next()) {
+            managerID = res->getInt("manager_id");
+        }
+        else {
+            std::cout << "Manager for project with ID " << projectID << " not found in the database." << std::endl;
+        }
+
+        delete res;
+        delete pstmt;
+    }
+    catch (sql::SQLException& e) {
+        std::cout << "SQLException: " << e.what() << std::endl;
+    }
+
+    return managerID;
+}
+
+int fillCompletedTasksFromDatabase(sql::Connection* con, int projectID) {
+    sql::ResultSet* res;
+    sql::PreparedStatement* pstmt = nullptr;
+    int numberOfCompletedTasks = 0;
+
+    try {
+        pstmt = con->prepareStatement("SELECT COUNT(*) AS completed_tasks FROM tasks WHERE project_id = ? AND (status = 'completed' OR status = 'Completed')");
+        pstmt->setInt(1, projectID);
+        res = pstmt->executeQuery();
+
+        if (res->next()) {
+            numberOfCompletedTasks = res->getInt("completed_tasks");
+        }
+        else {
+            std::cout << "No completed tasks found for project with ID " << projectID << "." << std::endl;
+        }
+
+        delete res;
+        delete pstmt;
+    }
+    catch (sql::SQLException& e) {
+        std::cout << "SQLException: " << e.what() << std::endl;
+    }
+
+    return numberOfCompletedTasks;
+}
 
 void Report::insertDataToDatabase(sql::Connection* con)
 {
@@ -58,7 +128,7 @@ std::string getReportByProjectID(sql::Connection* con, int wantedProjectID) {
             reportData += "Project Name: " + projectName + "\n";
             reportData += "Manager ID: " + std::to_string(managerID) + "\n";
             reportData += "Number of Completed Tasks: " + std::to_string(numberOfCompletedTasks) + "\n";
-            reportData += "Other Information: " + otherInformation + "\n";
+            reportData += "Other Informations: " + otherInformation + "\n";
             reportData += "Report creation date: " + reportDate + "\n===========\n\n";
         }
 

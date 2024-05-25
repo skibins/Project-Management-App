@@ -10,7 +10,7 @@ void updateReportCompletedTasks(sql::Connection* con, int reportID, int numberOf
 class Report
 {
 public:
-	Report(int projectID, int managerID, int newNumberOfCompletedTask, const std::string& newOtherInformation);
+	Report(sql::Connection* con, int projectID, const std::string& newOtherInformation);
 
 	void insertDataToDatabase(sql::Connection* con);
 

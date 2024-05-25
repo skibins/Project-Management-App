@@ -4,6 +4,7 @@
 #include <mysql_connection.h>
 
 std::string getTaskByID(sql::Connection* con, int taskID);
+std::string getAllTasks(sql::Connection* con);
 void updateTaskStatus(sql::Connection* con, int taskID, const std::string& status);
 
 void insertDataToAssignedTasks(sql::Connection* con, int taskID, int employeeID);

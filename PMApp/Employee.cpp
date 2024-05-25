@@ -5,8 +5,15 @@
 #include <cppconn/prepared_statement.h>
 
 
-Employee::Employee(const std::string& employeeName, const std::string& employeelastName, const std::string& employeeposition)
-    : firstName(employeeName), lastName(employeelastName), position(employeeposition) {}
+Employee::Employee(const std::string& employeeName, const std::string& employeelastName, const std::string& employeeposition) {
+    if (employeeName.empty() || employeelastName.empty() || employeeposition.empty()) {
+        std::cout << "All employee fields must be provided." << std::endl;
+        return;
+    }
+    this->firstName = employeeName;
+    this->lastName = employeelastName;
+    this->position = employeeposition;
+}
 
 void Employee::insertDataToDatabase(sql::Connection* con) {
     sql::PreparedStatement* pstmt = nullptr;

@@ -10,7 +10,7 @@ void updateScheduleActualEndDate(sql::Connection* con, int scheduleID, const std
 class Schedule
 {
 public:
-	Schedule(int projectID, const std::string& schedulePlannedEndDate, const std::string& scheduleActualEndDate);
+	Schedule(sql::Connection* con, int projectID, const std::string& scheduleActualEndDate);
 
 	void insertDataToDatabase(sql::Connection* con);
 

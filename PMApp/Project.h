@@ -4,6 +4,7 @@
 #include <mysql_connection.h>
 
 std::string getProjectByID(sql::Connection* con, int projectID);
+std::string getAllProjects(sql::Connection* con);
 void updateProjectStatus(sql::Connection* con, int projectID, const std::string& status);
 
 class Project {
