@@ -2,6 +2,10 @@
 #include "database.h"
 #include "Project.h"
 #include "Task.h"
+#include "Employee.h"
+#include "Schedule.h"
+#include "ProjectManager.h"
+#include "Report.h"
 
 using namespace std;
 
@@ -12,104 +16,86 @@ int main() {
     // =========================
     // ---- READY CLASSES ----
     // =========================
+    
+    // ProjectManager uasage example
+
+    //ProjectManager projectManager("John", "test");
+
+    //projectManager.insertDataToDatabase(con);
+
+    //insertDataToProjectManagerAssignments(con, 1, 1);
+    
+    //cout << getProjectManagerByID(con, 2);
+
+    //displayProjectsByManagerID(con, 2);
+
+    // =========================
 
     // Project class usage example
 
-    Project project("Sample Project", "This is a sample project description.", "2024-04-30", "2024-05-30", "In Progress");
+    //Project project("Sample Project", "Desc", "2024-04-30", "2024-05-30", "In Progress");
 
     //project.insertDataToDatabase(con);
 
-    cout << getProjectByID(con, 2) << endl;
+    //cout << getProjectByID(con, 2) << endl;
+
+    //cout << getAllProjects(con) << endl;
 
     //updateProjectStatus(con, 2, "another test status");
 
-    // Task class usage example
+    // =========================
 
-    Task task("Nazwa zadania", "Opis zadania", "Wysoki", "2024-04-30", "", "In progress", 2);
+    // Task class usage example
+    
+    //Task task("Nazwa zadania", "Opis zadania", "Wysoki", "2024-04-30", "", "In progress", 2);
 
     //task.insertDataToDatabase(con);
 
-    cout << getTaskByID(con, 2) << endl;
+    //cout << getTaskByID(con, 2) << endl;
+
+    //cout << getAllTasks(con) << endl;
 
     //insertDataToAssignedTasks(con, 3, 1);
 
     //updateTaskStatus(con, 2, "another Test status");
 
     // =========================
-    // ---- INSERT DATA ----
-    // =========================
 
-    /*
-    // Inserting data for an employee
-    insertDataToEmployees(con, "Janek", "Ski", "Developer");
+    // Employee class usage example
     
-    // Inserting task data
-    insertDataToTasks(con, "Task 3", "Description of task 3", "Medium", "2024-07-01", "2024-07-15", "Planned", 1);
-    
-    // Inserting data for a project manager
-    insertDataToProjectManagers(con, "Carol", "Johnson");
+    //Employee employee("Jan", "Nazwisko", "pracownik");
 
-    // Assigning the project manager to a project
-    insertDataToProjectManagerAssignments(con, 2, 3);
+    //employee.insertDataToDatabase(con);
 
-    // Inserting report data
-    insertDataToReports(con, 1, 1, 2, "Additional information for project 1");
+    //displayTasksByEmployeeID(con, 2);
 
-    // Inserting schedule data
-    insertDataToSchedules(con, 2, "2024-08-31", "");
-    
-    // Assigning task to project
-    insertDataToAssignedTasks(con, 3, 1);
-    */
+    //cout << getEmployeeByID(con, 2) << endl;
 
     // =========================
-    // ---- UPDATE DATA ----
-    // =========================
 
-    /*
-    // Updating the actual end date of the schedule
-    updateScheduleActualEndDate(con, 1, "2024-08-15");
+    // Schedule class usage example
 
-    // Updating the number of completed tasks in the report
-    updateReportCompletedTasks(con, 1, 5);
+    //Schedule schedule(con, 2, "2024-02-11");
 
-    // Updating the status of the project
-    updateProjectStatus(con, 1, "Completed");
-    */
+    //schedule.insertDataToDatabase(con);
+
+    //updateScheduleActualEndDate(con, 2, "2025-11-11");
+
+    //cout << getScheduleByProjectID(con, 2) << endl;
 
     // =========================
-    // ---- SHOW DATA ----
+
+    // Report class usage example
+
+    //Report report1(con, 1, "test");
+
+    //report1.insertDataToDatabase(con);
+
+    //cout << getReportByProjectID(con, 1);
+
+    //updateReportCompletedTasks(con, 1, 6);
+
     // =========================
-
-    /*
-    // Retrieving and printing task data
-    string taskData = getTaskByID(con, 1);
-    cout << "Task Data:\n" << taskData << endl;
-
-    // Retrieving and printing employee data
-    string employeeData = getEmployeeByID(con, 1);
-    cout << "Employee Data:\n" << employeeData << endl;
-
-    // Retrieving and printing project manager data
-    string managerData = getProjectManagerByID(con, 1);
-    cout << "Project Manager Data:\n" << managerData << endl;
-
-    // Retrieving and printing report data
-    string reportData = getReportByID(con, 1);
-    cout << "Report Data:\n" << reportData << endl;
-
-    // Retrieving and printing schedule data
-    string scheduleData = getScheduleByID(con, 1);
-    cout << "Schedule Data:\n" << scheduleData << endl;
-
-    // Displaying tasks assigned to the employee.
-    cout << "Tasks attached to employee 1:" << endl;
-    displayTasksByEmployeeID(con, 1);
-
-    // Displaying projects assigned to the manager.
-    cout << "Projects attached to manager 1:" << endl;
-    displayProjectsByManagerID(con, 1);
-    */
 
     // Closing the database connection
     delete con;

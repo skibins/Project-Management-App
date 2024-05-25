@@ -62,5 +62,8 @@
     <ClInclude Include="database.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="autofillFuncs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
