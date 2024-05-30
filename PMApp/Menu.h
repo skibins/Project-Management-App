@@ -18,7 +18,3 @@ void projectManagersMenu();
 void schedulesMenu();
 void reportsMenu();
 
-class menu
-{
-};
-
