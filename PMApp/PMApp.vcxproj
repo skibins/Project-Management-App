@@ -144,6 +144,7 @@
     <ClInclude Include="autofillFuncs.h" />
     <ClInclude Include="database.h" />
     <ClInclude Include="Employee.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Project.h" />
     <ClInclude Include="ProjectManager.h" />
     <ClInclude Include="Report.h" />
