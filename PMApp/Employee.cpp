@@ -32,7 +32,7 @@ void Employee::insertDataToDatabase(sql::Connection* con) {
     catch (sql::SQLException e) {
         // Handling SQL errors
         std::cout << "Could not insert data to employees. Error message: " << e.what() << std::endl;
-        exit(1);
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
     }
 }
 
@@ -70,7 +70,7 @@ std::string getEmployeeByID(sql::Connection* con, int employeeID) {
     catch (sql::SQLException e) {
         // Handling SQL errors
         std::cout << "SQL Exception: " << e.what() << std::endl;
-        exit(1);
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
     }
 }
 
@@ -114,6 +114,6 @@ void displayTasksByEmployeeID(sql::Connection* con, int employeeID) {
     catch (sql::SQLException e) {
         // Handle SQL exceptions
         std::cout << "SQL Exception: " << e.what() << std::endl;
-        exit(1);
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
     }
 }

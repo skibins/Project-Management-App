@@ -30,7 +30,7 @@ void ProjectManager::insertDataToDatabase(sql::Connection* con) {
     catch (sql::SQLException e) {
         // Handling SQL errors
         std::cout << "Could not insert data to project managers. Error message: " << e.what() << std::endl;
-        exit(1);
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
     }
 };
 
@@ -50,7 +50,7 @@ void insertDataToProjectManagerAssignments(sql::Connection* con, int projectID, 
     catch (sql::SQLException e) {
         // Handling SQL errors
         std::cout << "Could not insert data to project manager assignments. Error message: " << e.what() << std::endl;
-        exit(1);
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
     }
 };
 
@@ -86,7 +86,7 @@ std::string getProjectManagerByID(sql::Connection* con, int managerID) {
     catch (sql::SQLException e) {
         // Handling SQL errors
         std::cout << "SQL Exception: " << e.what() << std::endl;
-        exit(1);
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
     }
 };
 
@@ -126,6 +126,6 @@ void displayProjectsByManagerID(sql::Connection* con, int managerID) {
     catch (sql::SQLException e) {
         // Handle SQL exceptions
         std::cout << "SQL Exception: " << e.what() << std::endl;
-        exit(1);
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
     }
 };

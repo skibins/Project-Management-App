@@ -35,7 +35,7 @@ void Project::insertDataToDatabase(sql::Connection* con) {
     catch (sql::SQLException e) {
         // Handling SQL errors
         std::cout << "Could not insert data to projects. Error message: " << e.what() << std::endl;
-        exit(1);
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
     }
 }
 
@@ -77,7 +77,7 @@ std::string getProjectByID(sql::Connection* con, int projectID) {
     catch (sql::SQLException e) {
         // Handling SQL errors
         std::cout << "SQL Exception: " << e.what() << std::endl;
-        exit(1);
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
     }
 }
 
@@ -126,7 +126,7 @@ std::string getAllProjects(sql::Connection* con) {
     catch (sql::SQLException e) {
         // Handling SQL errors
         std::cout << "SQL Exception: " << e.what() << std::endl;
-        exit(1);
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
     }
 }
 
@@ -164,6 +164,5 @@ void updateProjectStatus(sql::Connection* con, int projectID, const std::string&
         std::cout << "SQL Exception: " << e.what() << std::endl;
         if (res) delete res; // Delete the result set in case of an error
         if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
-        exit(1);
     }
 }
