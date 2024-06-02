@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <windows.h>
 #include "menu.h"
 
 using namespace std;
@@ -10,24 +11,27 @@ int main() {
     // =========================
     // ------- MAIN MENU -------
     // =========================
-
+    
+    showupScreen();
+    
     int option;
 
     while (true) {
-        cout << "MAIN MENU" << endl;
-        cout<<endl;
-
-        cout << "Choose an option:" << endl;
-        cout << "1. Projects" << endl;
-        cout << "2. Tasks" << endl;
-        cout << "3. Employees" << endl;
-        cout << "4. Project Managers" << endl;
-        cout << "5. Schedules" << endl;
-        cout << "6. Reports" << endl;
-        cout << "7. Exit" << endl;
+        cout << "|------------------------------------" << endl; Sleep(50);
+        cout << "| Choose an option: [1-7]" << endl; Sleep(50);
+        cout << "|------------------------------------" << endl; Sleep(50);
+        cout << "| 1 | Projects" << endl; Sleep(50);
+        cout << "| 2 | Tasks" << endl; Sleep(50);
+        cout << "| 3 | Employees" << endl; Sleep(50);
+        cout << "| 4 | Project Managers" << endl; Sleep(50);
+        cout << "| 5 | Schedules" << endl; Sleep(50);
+        cout << "| 6 | Reports" << endl; Sleep(50);
+        cout << "| 7 | Exit" << endl; Sleep(50);
+        cout << "|------------------------------------" << endl; Sleep(50);
         
         cout << ":";
         cin >> option;
+        system("cls");
         switch (option) {
         case 1:
             projectsMenu();
@@ -52,7 +56,6 @@ int main() {
         default:
             cout << "Invalid option, try again." << endl;
         }
-
     }
 
     // Closing the database connection

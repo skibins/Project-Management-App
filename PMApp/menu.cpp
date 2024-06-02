@@ -1,5 +1,8 @@
 #include "Menu.h"
 #include <iostream>
+#include <windows.h>
+#include <cstdlib>
+#include <ctime>
 #include "string.h"
 #include "database.h"
 #include "Project.h"
@@ -20,17 +23,25 @@ bool isValidDate(const string& date) {
 void projectsMenu() {
     sql::Connection* con = connectToDatabase();
     while (true) {
-        cout << "Projects Menu:" << endl;
-        cout << "1. Add new project" << endl;
-        cout << "2. Show all projects" << endl;
-        cout << "3. Show project" << endl;
-        cout << "4. Update project status" << endl;
-        cout << "5. Back to main menu" << endl;
+
+        system("cls");
+
+        cout << "|------------------------------------" << endl; Sleep(50);
+        cout << "| Projects Menu:" << endl; Sleep(50);
+        cout << "|------------------------------------" << endl; Sleep(50);
+        cout << "| 1 | Add new project" << endl; Sleep(50);
+        cout << "| 2 | Show all projects" << endl; Sleep(50);
+        cout << "| 3 | Show project" << endl; Sleep(50);
+        cout << "| 4 | Update project status" << endl; Sleep(50);
+        cout << "| 5 | Back to main menu" << endl; Sleep(50);
+        cout << "|------------------------------------" << endl; Sleep(50);
 
         int choice, project_id, new_object;
         string project_name, project_desc, project_date_start, project_date_end, project_status;
 
         cin >> choice;
+
+        system("cls");
 
         switch (choice) {
         case 1:
@@ -66,12 +77,14 @@ void projectsMenu() {
         case 2:
             cout << getAllProjects(con);
             new_object = 0;
+            system("pause");
             break;
         case 3:
             cout << "Enter projects id: ";
             cin >> project_id;
             cout << getProjectByID(con, project_id);
             new_object = 0;
+            system("pause");
             break;
         case 4:
             cout << "Enter projects id: ";
@@ -100,17 +113,25 @@ void projectsMenu() {
 void tasksMenu() {
     sql::Connection* con = connectToDatabase();
     while (true) {
-        cout << "Tasks Menu:" << endl;
-        cout << "1. Add new task" << endl;
-        cout << "2. Show all tasks" << endl;
-        cout << "3. Show task" << endl;
-        cout << "4. Update task status" << endl;
-        cout << "5. Assign task to an employee" << endl;
-        cout << "6. Back to main menu" << endl;
+
+        system("cls");
+
+        cout << "|------------------------------------" << endl; Sleep(50);
+        cout << "| Tasks Menu:" << endl; Sleep(50);
+        cout << "|------------------------------------" << endl; Sleep(50);
+        cout << "| 1 | Add new task" << endl; Sleep(50);
+        cout << "| 2 | Show all tasks" << endl; Sleep(50);
+        cout << "| 3 | Show task" << endl; Sleep(50);
+        cout << "| 4 | Update task status" << endl; Sleep(50);
+        cout << "| 5 | Assign task to an employee" << endl; Sleep(50);
+        cout << "| 6 | Back to main menu" << endl; Sleep(50);
+        cout << "|------------------------------------" << endl;
 
         int choice, task_id, employee_id, new_object;
         string task_name, task_desc, task_prio, task_date_start, task_date_end, task_status;
         cin >> choice;
+
+        system("cls");
 
         switch (choice) {
         case 1:
@@ -150,12 +171,14 @@ void tasksMenu() {
         case 2:
             cout << getAllTasks(con);
             new_object = 0;
+            system("pause");
             break;
         case 3:
             cout << "Enter task's id: ";
             cin >> task_id;
             cout << getTaskByID(con, task_id);
             new_object = 0;
+            system("pause");
             break;
         case 4:
             cout << "Enter task's id: ";
@@ -191,15 +214,23 @@ void tasksMenu() {
 void employeesMenu() {
     sql::Connection* con = connectToDatabase();
     while (true) {
-        cout << "Employees Menu:" << endl;
-        cout << "1. Add new employee" << endl;
-        cout << "2. Show employee" << endl;
-        cout << "3. Display employee's tasks" << endl;
-        cout << "4. Back to main menu" << endl;
+
+        system("cls");
+
+        cout << "|------------------------------------" << endl; Sleep(50);
+        cout << "| Employees Menu:" << endl; Sleep(50);
+        cout << "|------------------------------------" << endl; Sleep(50);
+        cout << "| 1 | Add new employee" << endl; Sleep(50);
+        cout << "| 2 | Show employee" << endl; Sleep(50);
+        cout << "| 3 | Display employee's tasks" << endl; Sleep(50);
+        cout << "| 4 | Back to main menu" << endl; Sleep(50);
+        cout << "|------------------------------------" << endl; Sleep(50);
 
         int choice, employee_id, new_object;
         string employee_name, employee_surname, employee_position;
         cin >> choice;
+
+        system("cls");
 
         switch (choice) {
         case 1:
@@ -217,12 +248,14 @@ void employeesMenu() {
             cin >> employee_id;
             cout << getEmployeeByID(con, employee_id);
             new_object = 0;
+            system("pause");
             break;
         case 3:
             cout << "Enter employee's id: ";
             cin >> employee_id;
             displayTasksByEmployeeID(con, employee_id);
             new_object = 0;
+            system("pause");
             break;
         case 4:
             new_object = 0;
@@ -241,16 +274,24 @@ void employeesMenu() {
 void projectManagersMenu() {
     sql::Connection* con = connectToDatabase();
     while (true) {
-        cout << "Project Managers Menu:" << endl;
-        cout << "1. Add new manager" << endl;
-        cout << "2. Show manager" << endl;
-        cout << "3. Assign project to a manager" << endl;
-        cout << "4. Display manager's projects" << endl;
-        cout << "5. Back to main menu" << endl;
+
+        system("cls");
+
+        cout << "|------------------------------------" << endl; Sleep(50);
+        cout << "| Project Managers Menu:" << endl; Sleep(50);
+        cout << "|------------------------------------" << endl; Sleep(50);
+        cout << "| 1 | Add new manager" << endl; Sleep(50);
+        cout << "| 2 | Show manager" << endl; Sleep(50);
+        cout << "| 3 | Assign project to a manager" << endl; Sleep(50);
+        cout << "| 4 | Display manager's projects" << endl; Sleep(50);
+        cout << "| 5 | Back to main menu" << endl; Sleep(50);
+        cout << "|------------------------------------" << endl; 
 
         string manager_name, manager_surname;
         int choice, new_object, manager_id, project_id;
         cin >> choice;
+
+        system("cls");
 
         switch (choice) {
         case 1:
@@ -266,6 +307,7 @@ void projectManagersMenu() {
             cin >> manager_id;
             cout << getProjectManagerByID(con, manager_id);
             new_object = 0;
+            system("pause");
             break;
         case 3:
             cout << "Enter project's id: ";
@@ -280,6 +322,7 @@ void projectManagersMenu() {
             cin >> manager_id;
             displayProjectsByManagerID(con, manager_id);
             new_object = 0;
+            system("pause");
             break;
         case 5:
             new_object = 0;
@@ -297,15 +340,23 @@ void projectManagersMenu() {
 void schedulesMenu() {
     sql::Connection* con = connectToDatabase();
     while (true) {
-        cout << "Schedules Menu:" << endl;
-        cout << "1. Add new schedule" << endl;
-        cout << "2. Show schedule by project ID" << endl;
-        cout << "3. Update schedule's actual end date" << endl;
-        cout << "4. Back to main menu" << endl;
+
+        system("cls");
+
+        cout << "|------------------------------------" << endl; Sleep(50);
+        cout << "| Schedules Menu:" << endl; Sleep(50);
+        cout << "|------------------------------------" << endl; Sleep(50);
+        cout << "| 1 | Add new schedule" << endl; Sleep(50);
+        cout << "| 2 | Show schedule by project ID" << endl; Sleep(50);
+        cout << "| 3 | Update schedule's actual end date" << endl; Sleep(50);
+        cout << "| 4 | Back to main menu" << endl; Sleep(50);
+        cout << "|------------------------------------" << endl;
 
         int choice, new_object, project_id, schedule_id;
         string schedule_date_end;
         cin >> choice;
+
+        system("cls");
 
         switch (choice) {
         case 1:
@@ -321,6 +372,7 @@ void schedulesMenu() {
             cin >> project_id;
             cout << getScheduleByProjectID(con, project_id);
             new_object = 0;
+            system("pause");
             break;
         case 3:
             cout << "Enter schedule's id: ";
@@ -346,15 +398,23 @@ void schedulesMenu() {
 void reportsMenu() {
     sql::Connection* con = connectToDatabase();
     while (true) {
-        cout << "Reports Menu:" << endl;
-        cout << "1. Add new report" << endl;
-        cout << "2. Show report by project ID" << endl;
-        cout << "3. Update report's completed tasks" << endl;
-        cout << "4. Back to main menu" << endl;
+
+        system("cls");
+
+        cout << "|------------------------------------" << endl; Sleep(50);
+        cout << "| Reports Menu:" << endl; Sleep(50);
+        cout << "|------------------------------------" << endl; Sleep(50);
+        cout << "| 1 | Add new report" << endl; Sleep(50);
+        cout << "| 2 | Show report by project ID" << endl; Sleep(50);
+        cout << "| 3 | Update report's completed tasks" << endl; Sleep(50);
+        cout << "| 4 | Back to main menu" << endl; Sleep(50);
+        cout << "|------------------------------------" << endl;
 
         int choice, new_object, project_id, report_id, report_no_completed_tasks;
         string report_other_info;
         cin >> choice;
+
+        system("cls");
 
         switch (choice) {
         case 1:
@@ -370,6 +430,7 @@ void reportsMenu() {
             cin >> project_id;
             cout << getReportByProjectID(con, project_id);
             new_object = 0;
+            system("pause");
             break;
         case 3:
             cout << "Enter report's id: ";
@@ -390,4 +451,48 @@ void reportsMenu() {
             report.insertDataToDatabase(con);
         }
     }
+}
+
+void showupScreen() { 
+
+    srand(time(NULL));
+
+    cout << "\n\n\n\n\n\n\n\n\n\n\n                                                     Loading . . ." << endl << endl;
+
+    cout << "                                                  ";
+
+    for (int i = 0; i < 20; i++) {
+        int random = rand() %200+50;
+        cout << "|";
+        Sleep(random);
+    }
+    system("cls");
+
+
+
+    string submit;
+
+    setlocale(LC_ALL, "");
+    cout << endl;
+    cout << "  XXXXX   XXXXX    XXXX   XXXXXX  XXXXX    XXXXX  XXXXXX                                                                " << endl;    Sleep(100);
+    cout << "  XX  XX  XX  XX  XX  XX      XX  XX      XX        XX                                                                  " << endl;    Sleep(100);
+    cout << "  XXXXX   XXXXX   XX  XX      XX  XXXXX   XX        XX                                                                  " << endl;    Sleep(100);
+    cout << "  XX      XX XX   XX  XX  XX  XX  XX      XX        XX                                                                  " << endl;    Sleep(100);
+    cout << "  XX      XX  XX   XXXX    XXXX   XXXXX    XXXXX    XX                                                                  " << endl;    Sleep(100);
+    cout << endl;                                                                                                                                  Sleep(100);
+    cout << "  XX   XX   XXXX   XX   XX   XXXX    XXXXX   XXXXX  XX   XX  XXXXX  XX   XX  XXXXXX        XXXX   XXXXX   XXXXX         " << endl;    Sleep(100);
+    cout << "  XXX XXX  XX  XX  XXX  XX  XX  XX  XX       XX     XXX XXX  XX     XXX  XX    XX         XX  XX  XX  XX  XX  XX        " << endl;    Sleep(100);
+    cout << "  XX X XX  XXXXXX  XX X XX  XXXXXX  XX  XXX  XXXXX  XX X XX  XXXXX  XX X XX    XX         XXXXXX  XXXXX   XXXXX         " << endl;    Sleep(100);
+    cout << "  XX   XX  XX  XX  XX  XXX  XX  XX  XX   XX  XX     XX   XX  XX     XX  XXX    XX         XX  XX  XX      XX            " << endl;    Sleep(100);
+    cout << "  XX   XX  XX  XX  XX   XX  XX  XX   XXXXX   XXXXX  XX   XX  XXXXX  XX   XX    XX         XX  XX  XX      XX            " << endl;    Sleep(100);
+    Sleep(300);
+    cout << endl << "                                                                                           Created by:          " << endl;    Sleep(50);
+    cout << "                                                                                               Jan Skibiñski            " << endl;    Sleep(50);
+    cout << "                                                                                               Micha³ Bujok             " << endl;    Sleep(50);
+    cout << "                                                                                               Sebastian Paszek         " << endl;    Sleep(150);
+    cout << endl;
+    cout << "                                     insert [start] to continue" << endl;
+    cout << "                                           ";
+    getline(cin, submit);
+    system("cls");
 }
