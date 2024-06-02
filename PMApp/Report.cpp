@@ -44,6 +44,7 @@ int fillManagerIdFromDatabase(sql::Connection* con, int projectID) {
     }
     catch (sql::SQLException& e) {
         std::cout << "SQLException: " << e.what() << std::endl;
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
     }
 
     return managerID;
@@ -71,6 +72,7 @@ int fillCompletedTasksFromDatabase(sql::Connection* con, int projectID) {
     }
     catch (sql::SQLException& e) {
         std::cout << "SQLException: " << e.what() << std::endl;
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
     }
 
     return numberOfCompletedTasks;
@@ -95,7 +97,7 @@ void Report::insertDataToDatabase(sql::Connection* con)
     catch (sql::SQLException e) {
         // Handling SQL errors
         std::cout << "Could not insert data to reports. Error message: " << e.what() << std::endl;
-        exit(1);
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
     }
 };
 std::string getReportByProjectID(sql::Connection* con, int wantedProjectID) {
@@ -146,7 +148,7 @@ std::string getReportByProjectID(sql::Connection* con, int wantedProjectID) {
     catch (sql::SQLException e) {
         // Handling SQL errors
         std::cout << "SQL Exception: " << e.what() << std::endl;
-        exit(1);
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
     }
 };
 void updateReportCompletedTasks(sql::Connection* con, int reportID, int numberOfCompletedTasks) {
@@ -165,6 +167,6 @@ void updateReportCompletedTasks(sql::Connection* con, int reportID, int numberOf
     catch (sql::SQLException e) {
         // Handling SQL errors
         std::cout << "Could not update number of completed tasks for report. Error message: " << e.what() << std::endl;
-        exit(1);
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
     }
 };
