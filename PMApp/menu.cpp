@@ -493,10 +493,10 @@ void showupScreen() {
 
     SetConsoleTextAttribute(hConsole, 4);
 
-    cout << "X     X    X      XXX                                                                                              " << endl;    Sleep(100);
-    cout << " X   X     X     X   X                                                                                             " << endl;    Sleep(100);
-    cout << "  X X      X     X   X                                                                                             " << endl;    Sleep(100);
-    cout << "   X       X  X   XXX                                                                                              " << endl;    Sleep(100);
+    cout << "XX     XX    XX      XXXX                                                                                              " << endl;    Sleep(100);
+    cout << " XX   XX     XX     XX  XX                                                                                             " << endl;    Sleep(100);
+    cout << "  XX XX      XX     XX  XX                                                                                             " << endl;    Sleep(100);
+    cout << "   XXX       XX  X   XXXX                                                                                              " << endl;    Sleep(100);
 
     Sleep(300);
 
