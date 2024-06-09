@@ -40,7 +40,7 @@ void Task::insertDataToDatabase(sql::Connection* con) {
     catch (sql::SQLException e) {
         // Handling SQL errors
         std::cout << "Could not insert data to tasks. Error message: " << e.what() << std::endl;
-        exit(1);
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
     }
 }
 
@@ -86,7 +86,7 @@ std::string getTaskByID(sql::Connection* con, int taskID) {
     catch (sql::SQLException e) {
         // Handling SQL errors
         std::cout << "SQL Exception: " << e.what() << std::endl;
-        exit(1);
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
     }
 }
 
@@ -136,7 +136,7 @@ std::string getAllTasks(sql::Connection* con) {
     catch (sql::SQLException e) {
         // Handling SQL errors
         std::cout << "SQL Exception: " << e.what() << std::endl;
-        exit(1);
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
     }
 }
 
@@ -175,7 +175,6 @@ void updateTaskStatus(sql::Connection* con, int taskID, const std::string& statu
         std::cout << "SQL Exception: " << e.what() << std::endl;
         if (res) delete res; // Delete the result set in case of an error
         if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
-        exit(1);
     }
 }
 
@@ -217,6 +216,6 @@ void insertDataToAssignedTasks(sql::Connection* con, int taskID, int employeeID)
     catch (sql::SQLException e) {
         // Handling SQL errors
         std::cout << "Could not insert data to assigned tasks. Error message: " << e.what() << std::endl;
-        exit(1);
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
     }
 }

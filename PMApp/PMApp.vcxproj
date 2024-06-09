@@ -133,6 +133,7 @@
     <ClCompile Include="database.cpp" />
     <ClCompile Include="Employee.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="menu.cpp" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="ProjectManager.cpp" />
     <ClCompile Include="Report.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="autofillFuncs.h" />
     <ClInclude Include="database.h" />
     <ClInclude Include="Employee.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Project.h" />
     <ClInclude Include="ProjectManager.h" />
     <ClInclude Include="Report.h" />

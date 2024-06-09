@@ -37,6 +37,7 @@ std::string fillPlannedEndDateFromDatabase(sql::Connection* con, int SchedulePro
     }
     catch (sql::SQLException& e) {
         std::cout << "SQLException: " << e.what() << std::endl;
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
         return "";
     }
 
@@ -63,7 +64,7 @@ void Schedule::insertDataToDatabase(sql::Connection* con)
     catch (sql::SQLException e) {
         // Handling SQL errors
         std::cout << "Could not insert data to schedules. Error message: " << e.what() << std::endl;
-        exit(1);
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
     }
 	
 }
@@ -112,7 +113,7 @@ std::string getScheduleByProjectID(sql::Connection* con, int wantedProjectID) {
     catch (sql::SQLException e) {
         // Handling SQL errors
         std::cout << "SQL Exception: " << e.what() << std::endl;
-        exit(1);
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
     }
 }
 
@@ -132,6 +133,6 @@ void updateScheduleActualEndDate(sql::Connection* con, int scheduleID, const std
     catch (sql::SQLException e) {
         // Handling SQL errors
         std::cout << "Could not update actual end date for schedule. Error message: " << e.what() << std::endl;
-        exit(1);
+        if (pstmt) delete pstmt; // Delete the prepared statement in case of an error
     }
 }
