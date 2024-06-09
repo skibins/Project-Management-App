@@ -472,6 +472,10 @@ void showupScreen() {
 
     string submit;
 
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    SetConsoleTextAttribute(hConsole, 13);
+
     setlocale(LC_ALL, "");
     cout << endl;
     cout << "  XXXXX   XXXXX    XXXX   XXXXXX  XXXXX    XXXXX  XXXXXX                                                                " << endl;    Sleep(100);
@@ -485,13 +489,31 @@ void showupScreen() {
     cout << "  XX X XX  XXXXXX  XX X XX  XXXXXX  XX  XXX  XXXXX  XX X XX  XXXXX  XX X XX    XX         XXXXXX  XXXXX   XXXXX         " << endl;    Sleep(100);
     cout << "  XX   XX  XX  XX  XX  XXX  XX  XX  XX   XX  XX     XX   XX  XX     XX  XXX    XX         XX  XX  XX      XX            " << endl;    Sleep(100);
     cout << "  XX   XX  XX  XX  XX   XX  XX  XX   XXXXX   XXXXX  XX   XX  XXXXX  XX   XX    XX         XX  XX  XX      XX            " << endl;    Sleep(100);
+    cout << endl;
+
+    SetConsoleTextAttribute(hConsole, 4);
+
+    cout << "X     X    X      XXX                                                                                              " << endl;    Sleep(100);
+    cout << " X   X     X     X   X                                                                                             " << endl;    Sleep(100);
+    cout << "  X X      X     X   X                                                                                             " << endl;    Sleep(100);
+    cout << "   X       X  X   XXX                                                                                              " << endl;    Sleep(100);
+
     Sleep(300);
+
+    SetConsoleTextAttribute(hConsole, 14);
+
     cout << endl << "                                                                                           Created by:          " << endl;    Sleep(50);
     cout << "                                                                                               Jan Skibiñski            " << endl;    Sleep(50);
     cout << "                                                                                               Micha³ Bujok             " << endl;    Sleep(50);
     cout << "                                                                                               Sebastian Paszek         " << endl;    Sleep(150);
     cout << endl;
-    cout << "                                     insert [start] to continue" << endl;
+
+    SetConsoleTextAttribute(hConsole, 4);
+
+    cout << "                                     press RETURN to continue" << endl;
+
+    SetConsoleTextAttribute(hConsole, 2);
+
     cout << "                                           ";
     getline(cin, submit);
     system("cls");
