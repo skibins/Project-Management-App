@@ -15,7 +15,7 @@ int main() {
     showupScreen();
     
     int option;
-
+    // Show main menu
     while (true) {
         cout << "|------------------------------------" << endl; Sleep(50);
         cout << "| Choose an option: [1-7]" << endl; Sleep(50);
