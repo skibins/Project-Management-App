@@ -15,17 +15,21 @@
 
 using namespace std;
 
+// Function to check if the date is in valid format
 bool isValidDate(const string& date) {
     regex datePattern(R"(\d{4}-\d{2}-\d{2})");
     return regex_match(date, datePattern);
 }
 
+// Menu for handling projects
 void projectsMenu() {
+    // Connect to the database
     sql::Connection* con = connectToDatabase();
     while (true) {
 
         system("cls");
 
+        // Display the menu
         cout << "|------------------------------------" << endl; Sleep(50);
         cout << "| Projects Menu:" << endl; Sleep(50);
         cout << "|------------------------------------" << endl; Sleep(50);
@@ -38,13 +42,14 @@ void projectsMenu() {
 
         int choice, project_id, new_object;
         string project_name, project_desc, project_date_start, project_date_end, project_status;
-
+        // Get user choice
         cin >> choice;
 
         system("cls");
 
         switch (choice) {
         case 1:
+            // Adding a new project
             getline(cin, project_name);
             cout << "Enter project name: ";
             getline(cin, project_name);
@@ -75,11 +80,13 @@ void projectsMenu() {
             new_object = 1;
             break;
         case 2:
+            // Showing all projects
             cout << getAllProjects(con);
             new_object = 0;
             system("pause");
             break;
         case 3:
+            // Showing a specific project
             cout << "Enter projects id: ";
             cin >> project_id;
             cout << getProjectByID(con, project_id);
@@ -87,6 +94,7 @@ void projectsMenu() {
             system("pause");
             break;
         case 4:
+            // Updating project status
             cout << "Enter projects id: ";
             cin >> project_id;
             getline(cin, project_status);
@@ -96,12 +104,14 @@ void projectsMenu() {
             new_object = 0;
             break;
         case 5:
+            // Back to main menu
             new_object = 0;
             return;
         default:
             new_object = 0;
             cout << "Invalid option, try again." << endl;
         }
+        // Checking if new object was created
         if (new_object == 1) {
             Project project(project_name, project_desc, project_date_start, project_date_end, project_status);
             project.insertDataToDatabase(con);
@@ -110,12 +120,15 @@ void projectsMenu() {
     }
 }
 
+// Menu for handling tasks
 void tasksMenu() {
+    // Connect to the database
     sql::Connection* con = connectToDatabase();
     while (true) {
 
         system("cls");
 
+        // Display the menu
         cout << "|------------------------------------" << endl; Sleep(50);
         cout << "| Tasks Menu:" << endl; Sleep(50);
         cout << "|------------------------------------" << endl; Sleep(50);
@@ -129,12 +142,14 @@ void tasksMenu() {
 
         int choice, task_id, employee_id, new_object;
         string task_name, task_desc, task_prio, task_date_start, task_date_end, task_status;
+        // Get user choice
         cin >> choice;
 
         system("cls");
 
         switch (choice) {
         case 1:
+            // Adding a new task
             getline(cin, task_name);
             cout << "Enter task's name: ";
             getline(cin, task_name);
@@ -169,6 +184,7 @@ void tasksMenu() {
             new_object = 1;
             break;
         case 2:
+            // Showing all tasks
             cout << getAllTasks(con);
             new_object = 0;
             system("pause");
@@ -176,6 +192,7 @@ void tasksMenu() {
         case 3:
             // Showing a specific task
             cout << "Enter task's id (must be an integer): ";
+
             cin >> task_id;
             cout << getTaskByID(con, task_id);
             new_object = 0;
@@ -183,6 +200,7 @@ void tasksMenu() {
             break;
         case 4:
             // Updating task status
+
             cout << "Enter task's id (must be an integer): ";
             cin >> task_id;
             getline(cin, task_status);
@@ -193,7 +211,9 @@ void tasksMenu() {
             break;
         case 5:
             // Assigning a task to an employee
+
             cout << "Enter task's id (must be an integer): ";
+
             cin >> task_id;
             cout << "Enter employee's id (must be an integer): ";
             cin >> employee_id;
@@ -201,12 +221,14 @@ void tasksMenu() {
             new_object = 0;
             break;
         case 6:
+            // Back to main menu
             new_object = 0;
             return;
         default:
             new_object = 0;
             cout << "Invalid option, try again." << endl;
         }
+        // Checking if new object was created
         if (new_object == 1) {
             Task task(task_name, task_desc, task_prio, task_date_start, task_date_end, task_status, task_id);
             task.insertDataToDatabase(con);
@@ -214,12 +236,15 @@ void tasksMenu() {
     }
 }
 
+// Menu for handling employees
 void employeesMenu() {
+    // Connect to the database
     sql::Connection* con = connectToDatabase();
     while (true) {
 
         system("cls");
 
+        // Display the menu
         cout << "|------------------------------------" << endl; Sleep(50);
         cout << "| Employees Menu:" << endl; Sleep(50);
         cout << "|------------------------------------" << endl; Sleep(50);
@@ -231,12 +256,14 @@ void employeesMenu() {
 
         int choice, employee_id, new_object;
         string employee_name, employee_surname, employee_position;
+        // Get user choice
         cin >> choice;
 
         system("cls");
 
         switch (choice) {
         case 1:
+            // Adding a new employee
             getline(cin, employee_name);
             cout << "Enter employee's name: ";
             getline(cin, employee_name);
@@ -249,6 +276,7 @@ void employeesMenu() {
         case 2:
             // Showing a specific employee
             cout << "Enter employee's id (must be an integer): ";
+
             cin >> employee_id;
             cout << getEmployeeByID(con, employee_id);
             new_object = 0;
@@ -263,12 +291,14 @@ void employeesMenu() {
             system("pause");
             break;
         case 4:
+            // Back to main menu
             new_object = 0;
             return;
         default:
             new_object = 0;
             cout << "Invalid option, try again." << endl;
         }
+        // Checking if new object was created
         if (new_object == 1) {
             Employee employee(employee_name, employee_surname, employee_position);
             employee.insertDataToDatabase(con);
@@ -276,12 +306,15 @@ void employeesMenu() {
     }
 }
 
+// Menu for handling project managers
 void projectManagersMenu() {
+    // Connect to the database
     sql::Connection* con = connectToDatabase();
     while (true) {
 
         system("cls");
 
+        // Display the menu
         cout << "|------------------------------------" << endl; Sleep(50);
         cout << "| Project Managers Menu:" << endl; Sleep(50);
         cout << "|------------------------------------" << endl; Sleep(50);
@@ -294,12 +327,14 @@ void projectManagersMenu() {
 
         string manager_name, manager_surname;
         int choice, new_object, manager_id, project_id;
+        // Get user choice
         cin >> choice;
 
         system("cls");
 
         switch (choice) {
         case 1:
+            // Adding a new manager
             getline(cin, manager_name);
             cout << "Enter manager's name: ";
             getline(cin, manager_name);
@@ -333,11 +368,13 @@ void projectManagersMenu() {
             system("pause");
             break;
         case 5:
+            // Back to main menu
             new_object = 0;
             return;
         default:
             cout << "Invalid option, try again." << endl;
         }
+        // Checking if new object was created
         if (new_object == 1) {
             ProjectManager projectManager(manager_name, manager_surname);
             projectManager.insertDataToDatabase(con);
@@ -345,12 +382,15 @@ void projectManagersMenu() {
     }
 }
 
+// Menu for handling schedules
 void schedulesMenu() {
+    // Connect to the database
     sql::Connection* con = connectToDatabase();
     while (true) {
 
         system("cls");
 
+        // Display the menu
         cout << "|------------------------------------" << endl; Sleep(50);
         cout << "| Schedules Menu:" << endl; Sleep(50);
         cout << "|------------------------------------" << endl; Sleep(50);
@@ -362,6 +402,7 @@ void schedulesMenu() {
 
         int choice, new_object, project_id, schedule_id;
         string schedule_date_end;
+        // Get user choice
         cin >> choice;
 
         system("cls");
@@ -394,11 +435,13 @@ void schedulesMenu() {
             new_object = 0;
             break;
         case 4:
+            // Back to main menu
             new_object = 0;
             return;
         default:
             cout << "Invalid option, try again." << endl;
         }
+        // Checking if new object was created
         if (new_object == 1) {
             Schedule schedule(con, project_id, schedule_date_end);
             schedule.insertDataToDatabase(con);
@@ -406,12 +449,15 @@ void schedulesMenu() {
     }
 }
 
+// Menu for handling reports
 void reportsMenu() {
+    // Connect to the database
     sql::Connection* con = connectToDatabase();
     while (true) {
 
         system("cls");
 
+        // Display the menu
         cout << "|------------------------------------" << endl; Sleep(50);
         cout << "| Reports Menu:" << endl; Sleep(50);
         cout << "|------------------------------------" << endl; Sleep(50);
@@ -423,6 +469,7 @@ void reportsMenu() {
 
         int choice, new_object, project_id, report_id, report_no_completed_tasks;
         string report_other_info;
+        // Get user choice
         cin >> choice;
 
         system("cls");
@@ -455,11 +502,13 @@ void reportsMenu() {
             new_object = 0;
             break;
         case 4:
+            // Back to main menu
             new_object = 0;
             return;
         default:
             cout << "Invalid option, try again." << endl;
         }
+        // Checking if new object was created
         if (new_object == 1) {
             Report report(con, project_id, report_other_info);
             report.insertDataToDatabase(con);
@@ -467,6 +516,7 @@ void reportsMenu() {
     }
 }
 
+// Function to show a loading screen
 void showupScreen() { 
 
     srand(time(NULL));
@@ -508,18 +558,18 @@ void showupScreen() {
 
     SetConsoleTextAttribute(hConsole, 4);
 
-    cout << "X     X    X      XXX                                                                                              " << endl;    Sleep(100);
-    cout << " X   X     X     X   X                                                                                             " << endl;    Sleep(100);
-    cout << "  X X      X     X   X                                                                                             " << endl;    Sleep(100);
-    cout << "   X       X  X   XXX                                                                                              " << endl;    Sleep(100);
+    cout << "XX     XX    XX      XXXX                                                                                              " << endl;    Sleep(100);
+    cout << " XX   XX     XX     XX  XX                                                                                             " << endl;    Sleep(100);
+    cout << "  XX XX      XX     XX  XX                                                                                             " << endl;    Sleep(100);
+    cout << "   XXX       XX  X   XXXX                                                                                              " << endl;    Sleep(100);
 
     Sleep(300);
 
     SetConsoleTextAttribute(hConsole, 14);
 
     cout << endl << "                                                                                           Created by:          " << endl;    Sleep(50);
-    cout << "                                                                                               Jan Skibiñski            " << endl;    Sleep(50);
-    cout << "                                                                                               Micha³ Bujok             " << endl;    Sleep(50);
+    cout << "                                                                                               Jan SkibiÃ±ski            " << endl;    Sleep(50);
+    cout << "                                                                                               MichaÂ³ Bujok             " << endl;    Sleep(50);
     cout << "                                                                                               Sebastian Paszek         " << endl;    Sleep(150);
     cout << endl;
 
