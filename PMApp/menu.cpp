@@ -51,7 +51,7 @@ void projectsMenu() {
             cout << "Enter project descripton: ";
             getline(cin, project_desc);
             while (true) {
-                cout << "Enter project start date: ";
+                cout << "Enter project start date (yyyy-mm-dd): ";
                 getline(cin, project_date_start);
                 if (isValidDate(project_date_start)) {
                     break;
@@ -61,7 +61,7 @@ void projectsMenu() {
                 }
             }
             while (true) {
-                cout << "Enter project end date: ";
+                cout << "Enter project end date (yyyy-mm-dd): ";
                 getline(cin, project_date_end);
                 if (isValidDate(project_date_end)) {
                     break;
