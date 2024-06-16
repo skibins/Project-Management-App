@@ -70,7 +70,7 @@ void projectsMenu() {
                     cout << "Bad date format (yyyy-mm-dd), try again!\n";
                 }
             }
-            cout << "Enter project status: ";
+            cout << "Enter project status (Completed / In Progress / Planned): ";
             getline(cin, project_status);
             new_object = 1;
             break;
@@ -90,7 +90,7 @@ void projectsMenu() {
             cout << "Enter projects id: ";
             cin >> project_id;
             getline(cin, project_status);
-            cout << "Enter updated project status: ";
+            cout << "Enter updated project status (Completed / In progress / Planned): ";
             getline(cin, project_status);
             updateProjectStatus(con, project_id, project_status);
             new_object = 0;
@@ -143,7 +143,7 @@ void tasksMenu() {
             cout << "Enter task's priority: ";
             getline(cin, task_prio);
             while (true) {
-                cout << "Enter task's start date: ";
+                cout << "Enter task's start date (yyyy-mm-dd): ";
                 getline(cin, task_date_start);
                 if (isValidDate(task_date_start)) {
                     break;
@@ -153,7 +153,7 @@ void tasksMenu() {
                 }
             }
             while (true) {
-                cout << "Enter task's end date: ";
+                cout << "Enter task's end date (yyyy-mm-dd): ";
                 getline(cin, task_date_end);
                 if (isValidDate(task_date_end)) {
                     break;
@@ -162,9 +162,9 @@ void tasksMenu() {
                     cout << "Bad date format (yyyy-mm-dd), try again!\n";
                 }
             }
-            cout << "Enter task's status: ";
+            cout << "Enter task's status (Completed / In progress / Planned): ";
             getline(cin, task_status);
-            cout << "Enter project's id: ";
+            cout << "Enter project's id (must be an integer): ";
             cin >> task_id;
             new_object = 1;
             break;
@@ -174,25 +174,28 @@ void tasksMenu() {
             system("pause");
             break;
         case 3:
-            cout << "Enter task's id: ";
+            // Showing a specific task
+            cout << "Enter task's id (must be an integer): ";
             cin >> task_id;
             cout << getTaskByID(con, task_id);
             new_object = 0;
             system("pause");
             break;
         case 4:
-            cout << "Enter task's id: ";
+            // Updating task status
+            cout << "Enter task's id (must be an integer): ";
             cin >> task_id;
             getline(cin, task_status);
-            cout << "Enter updated task's status: ";
+            cout << "Enter updated task's status (Completed / In Progress / Planned): ";
             getline(cin, task_status);
             updateTaskStatus(con, task_id, task_status);
             new_object = 0;
             break;
         case 5:
-            cout << "Enter task's id: ";
+            // Assigning a task to an employee
+            cout << "Enter task's id (must be an integer): ";
             cin >> task_id;
-            cout << "Enter employee's id: ";
+            cout << "Enter employee's id (must be an integer): ";
             cin >> employee_id;
             insertDataToAssignedTasks(con, task_id, employee_id);
             new_object = 0;
@@ -244,14 +247,16 @@ void employeesMenu() {
             new_object = 1;
             break;
         case 2:
-            cout << "Enter employee's id: ";
+            // Showing a specific employee
+            cout << "Enter employee's id (must be an integer): ";
             cin >> employee_id;
             cout << getEmployeeByID(con, employee_id);
             new_object = 0;
             system("pause");
             break;
         case 3:
-            cout << "Enter employee's id: ";
+            // Displaying tasks assigned to an employee
+            cout << "Enter employee's id (must be an integer): ";
             cin >> employee_id;
             displayTasksByEmployeeID(con, employee_id);
             new_object = 0;
@@ -303,22 +308,25 @@ void projectManagersMenu() {
             new_object = 1;
             break;
         case 2:
-            cout << "Enter manager's id: ";
+            // Showing a specific manager
+            cout << "Enter manager's id (must be an integer): ";
             cin >> manager_id;
             cout << getProjectManagerByID(con, manager_id);
             new_object = 0;
             system("pause");
             break;
         case 3:
-            cout << "Enter project's id: ";
+            // Assigning a project to a manager
+            cout << "Enter project's id (must be an integer): ";
             cin >> project_id;
-            cout << "Enter manager's id: ";
+            cout << "Enter manager's id (must be an integer): ";
             cin >> manager_id;
             insertDataToProjectManagerAssignments(con, project_id, manager_id);
             new_object = 0;
             break;
         case 4:
-            cout << "Enter manager's id: ";
+            // Displaying projects assigned to a manager
+            cout << "Enter manager's id (must be an integer): ";
             cin >> manager_id;
             displayProjectsByManagerID(con, manager_id);
             new_object = 0;
@@ -360,24 +368,27 @@ void schedulesMenu() {
 
         switch (choice) {
         case 1:
-            cout << "Enter project's id: ";
+            // Adding a new schedule
+            cout << "Enter project's id (must be an integer): ";
             cin >> project_id;
             getline(cin, schedule_date_end);
-            cout << "Enter schedule's end date: ";
+            cout << "Enter schedule's end date (yyy-mm-dd): ";
             getline(cin, schedule_date_end);
             new_object = 1;
             break;
         case 2:
-            cout << "Enter project's id: ";
+            // Showing schedule by project ID
+            cout << "Enter project's id (must be an integer): ";
             cin >> project_id;
             cout << getScheduleByProjectID(con, project_id);
             new_object = 0;
             system("pause");
             break;
         case 3:
-            cout << "Enter schedule's id: ";
+            // Updating schedule's actual end date
+            cout << "Enter schedule's id (must be an integer): ";
             cin >> schedule_id;
-            cout << "Enter schedule date end: ";
+            cout << "Enter schedule date end (yyyy-mm-dd): ";
             cin >> schedule_date_end;
             updateScheduleActualEndDate(con, schedule_id, schedule_date_end);
             new_object = 0;
@@ -418,7 +429,8 @@ void reportsMenu() {
 
         switch (choice) {
         case 1:
-            cout << "Enter project's id: ";
+            // Adding a new report
+            cout << "Enter project's id (must be an integer): ";
             cin >> project_id;
             getline(cin, report_other_info);
             cout << "Enter report's other info: ";
@@ -426,16 +438,18 @@ void reportsMenu() {
             new_object = 1;
             break;
         case 2:
-            cout << "Enter project's id: ";
+            // Showing report by project ID
+            cout << "Enter project's id (must be an integer): ";
             cin >> project_id;
             cout << getReportByProjectID(con, project_id);
             new_object = 0;
             system("pause");
             break;
         case 3:
-            cout << "Enter report's id: ";
+            // Updating report's completed tasks
+            cout << "Enter report's id (must be an integer): ";
             cin >> report_id;
-            cout << "Enter report's number of completed tasks: ";
+            cout << "Enter report's number of completed tasks (must be an integer): ";
             cin >> report_no_completed_tasks;
             updateReportCompletedTasks(con, report_id, report_no_completed_tasks);
             new_object = 0;
@@ -476,6 +490,7 @@ void showupScreen() {
 
     SetConsoleTextAttribute(hConsole, 13);
 
+    // App title screen
     setlocale(LC_ALL, "");
     cout << endl;
     cout << "  XXXXX   XXXXX    XXXX   XXXXXX  XXXXX    XXXXX  XXXXXX                                                                " << endl;    Sleep(100);
