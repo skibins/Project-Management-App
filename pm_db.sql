@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2024 at 08:10 PM
+-- Generation Time: Maj 24, 2024 at 10:05 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -137,16 +137,21 @@ CREATE TABLE `reports` (
   `project_id` int(11) DEFAULT NULL,
   `manager_id` int(11) DEFAULT NULL,
   `number_of_completed_tasks` int(11) DEFAULT NULL,
-  `other_information` text DEFAULT NULL
+  `other_information` text DEFAULT NULL,
+  `report_date` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `reports`
 --
 
-INSERT INTO `reports` (`ID`, `project_id`, `manager_id`, `number_of_completed_tasks`, `other_information`) VALUES
-(1, 1, 1, 5, 'Some additional information for project 1'),
-(2, 2, 2, 0, 'Some additional information for project 2');
+INSERT INTO `reports` (`ID`, `project_id`, `manager_id`, `number_of_completed_tasks`, `other_information`, `report_date`) VALUES
+(2, 2, 2, 0, 'Some additional information for project 2', '2024-05-24'),
+(3, 1, 1, 17, 'test', '2024-05-24'),
+(4, 1, 1, 7, 'test', '2024-05-24'),
+(5, 1, 1, 7, 'test', '2024-05-24'),
+(6, 1, 1, 5, 'test', '2024-05-24'),
+(7, 1, 1, 5, 'test', '2024-05-24');
 
 -- --------------------------------------------------------
 
@@ -167,7 +172,8 @@ CREATE TABLE `schedules` (
 
 INSERT INTO `schedules` (`ID`, `project_id`, `planned_end_date`, `actual_end_date`) VALUES
 (1, 1, '2024-06-30', '2024-08-15'),
-(2, 2, '2024-08-31', '0000-00-00');
+(2, 2, '2024-08-31', '0000-00-00'),
+(4, 2, '2024-02-11', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -293,13 +299,13 @@ ALTER TABLE `project_manager_assignments`
 -- AUTO_INCREMENT for table `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `schedules`
 --
 ALTER TABLE `schedules`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tasks`
