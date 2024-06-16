@@ -10,16 +10,16 @@ PMA (Project Management App) is designed for companies that need a tool to manag
 
 ## Table of Contents
 
-1. [Introduction](#introduction)
-2. [System Requirements](#system-requirements)
-3. [Installation Guide](#installation-guide)
-4. [User Guide](#user-guide)
-5. [Admin Guide](#admin-guide)
-6. [Developer Guide](#developer-guide)
-7. [Common Issues](#common-issues)
-8. [License and Legal Information](#license-and-legal-information)
-9. [Contact and Support](#contact-and-support)
-10. [Attachments](#attachments)
+1. Introduction
+2. System Requirements
+3. Installation Guide
+4. User Guide
+5. Admin Guide
+6. Developer Guide
+7. Common Issues
+8. License and Legal Information
+9. Contact
+10. Attachments
 
 ## System Requirements
 
